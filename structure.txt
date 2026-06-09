@@ -1,0 +1,83 @@
+koushik@koushik-ASUS-TUF-Gaming-A15-FA506QM-FA506QM:~/Documents/virtusa/project$ tree
+.
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── virtusa
+│   │   │       └── project
+│   │   │           ├── config
+│   │   │           │   └── SecurityConfig.java
+│   │   │           ├── core
+│   │   │           ├── domains
+│   │   │           │   ├── admins
+│   │   │           │   ├── agent
+│   │   │           │   │   ├── model
+│   │   │           │   │   │   └── Agent.java
+│   │   │           │   │   └── repository
+│   │   │           │   │       └── AgentRepository.java
+│   │   │           │   ├── health
+│   │   │           │   │   └── controller
+│   │   │           │   │       └── DatabaseHealthController.java
+│   │   │           │   ├── notifications
+│   │   │           │   ├── personalization
+│   │   │           │   ├── search
+│   │   │           │   └── users
+│   │   │           └── ProjectApplication.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── db
+│   │       ├── elasticsearch
+│   │       ├── static
+│   │       └── templates
+│   └── test
+│       └── java
+│           └── virtusa
+│               └── project
+│                   └── ProjectApplicationTests.java
+├── structure.txt
+└── target
+    ├── classes
+    │   ├── application.properties
+    │   └── virtusa
+    │       └── project
+    │           ├── config
+    │           │   └── SecurityConfig.class
+    │           ├── core
+    │           ├── domains
+    │           │   ├── admins
+    │           │   ├── agent
+    │           │   │   ├── model
+    │           │   │   │   └── Agent.class
+    │           │   │   └── repository
+    │           │   │       └── AgentRepository.class
+    │           │   ├── health
+    │           │   │   └── controller
+    │           │   │       └── DatabaseHealthController.class
+    │           │   ├── notifications
+    │           │   ├── personalization
+    │           │   ├── search
+    │           │   └── users
+    │           └── ProjectApplication.class
+    ├── generated-sources
+    │   └── annotations
+    ├── generated-test-sources
+    │   └── test-annotations
+    ├── maven-status
+    │   └── maven-compiler-plugin
+    │       └── compile
+    │           └── default-compile
+    │               ├── createdFiles.lst
+    │               └── inputFiles.lst
+    └── test-classes
+        └── virtusa
+            └── project
+                └── ProjectApplicationTests.class
+
+56 directories, 21 files,
+
+
+A domain based spring boot 3, connected with neon postgress.
