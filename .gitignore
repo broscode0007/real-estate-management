@@ -1,8 +1,8 @@
 
 
 
-
-src/main/resources/rems-6e95a-firebase-adminsdk-fbsvc-6fc459facf.json
+api.txt
+src/main/resources/firebase-service-account.json
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar

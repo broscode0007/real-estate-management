@@ -15,7 +15,15 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests(auth -> auth
                 // Allow our public health check and synchronization endpoints to bypass direct session locks
-                .requestMatchers("/api/v1/health/db", "/api/v1/agents/auth/sync").permitAll() 
+                .requestMatchers(
+                    "/api/v1/health/db", 
+                    "/api/v1/agents/auth/sync",
+                    "/actuator",
+                    "/actuator/prometheus",
+                    "/v3/api-docs/**",      // Required for documentation data
+                    "/swagger-ui/**",       // Required for the UI asset layout
+                    "/swagger-ui.html"      // Main browser entry page
+                ).permitAll()
                 .anyRequest().authenticated()                    
             )
             // Add our custom Firebase filter right before Spring's default username/password filter
