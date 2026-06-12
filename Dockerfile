@@ -15,5 +15,6 @@ COPY --from=build /app/target/project-0.0.1-SNAPSHOT.jar app.jar
 # Copy your Firebase key securely into the runner environment
 COPY src/main/resources/firebase-service-account.json src/main/resources/firebase-service-account.json
 
+
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
