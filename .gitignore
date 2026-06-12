@@ -1,4 +1,5 @@
-
+prod.sh
+src/main/resources/VirtusaKey.pem
 firebase-service-account_backup.json
 src/main/resources/firebase-service-account_backup.json
 api.txt

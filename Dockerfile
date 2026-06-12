@@ -5,7 +5,7 @@ COPY pom.xml .
 # Cache your project dependencies cleanly
 RUN mvc_dep_cache=1 mvn dependency:go-offline -B
 COPY src ./src
-RUN mvn package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Stage 2: Create the high-performance runtime image
 FROM eclipse-temurin:21-jre-jammy
