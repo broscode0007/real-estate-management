@@ -1,0 +1,144 @@
+firebase_uid                 VARCHAR(255) PRIMARY KEY NOT NULL
+email                        VARCHAR(255) UNIQUE NOT NULL
+email_verified               BOOLEAN NOT NULL DEFAULT FALSE
+
+phone_number                 VARCHAR(255)
+phone_verified               BOOLEAN DEFAULT FALSE
+
+display_name                 VARCHAR(255)
+provider_id                  VARCHAR(255)
+profile_picture_url          VARCHAR(1000)
+
+firebase_created_at          TIMESTAMP
+firebase_last_sign_in_at     TIMESTAMP
+
+full_name                    VARCHAR(255) NOT NULL
+first_name                   VARCHAR(255)
+last_name                    VARCHAR(255)
+
+gender                       VARCHAR(50)
+date_of_birth                DATE
+nationality                  VARCHAR(100)
+language                     VARCHAR(100)
+timezone                     VARCHAR(100)
+
+bio                          TEXT
+tagline                      VARCHAR(500)
+
+agency_name                  VARCHAR(255)
+agent_license_number         VARCHAR(255) UNIQUE
+
+years_of_experience          INTEGER
+specialization               VARCHAR(255)
+designation                  VARCHAR(255)
+
+city                         VARCHAR(255)
+state                        VARCHAR(255)
+country                      VARCHAR(255)
+
+address_line_1               VARCHAR(500)
+address_line_2               VARCHAR(500)
+postal_code                  VARCHAR(50)
+
+latitude                     DOUBLE PRECISION
+longitude                    DOUBLE PRECISION
+
+average_rating               DOUBLE PRECISION DEFAULT 0.0
+total_reviews                INTEGER DEFAULT 0
+active_listings              INTEGER DEFAULT 0
+total_listings               INTEGER DEFAULT 0
+sold_properties              INTEGER DEFAULT 0
+rented_properties            INTEGER DEFAULT 0
+total_leads                  INTEGER DEFAULT 0
+
+kyc_verified                 BOOLEAN DEFAULT FALSE
+license_verified             BOOLEAN DEFAULT FALSE
+background_verified          BOOLEAN DEFAULT FALSE
+
+email_notifications_enabled  BOOLEAN DEFAULT TRUE
+push_notifications_enabled   BOOLEAN DEFAULT TRUE
+chat_notifications_enabled   BOOLEAN DEFAULT TRUE
+marketing_notifications_enabled BOOLEAN DEFAULT FALSE
+
+status                       VARCHAR(50) NOT NULL
+
+active                       BOOLEAN NOT NULL DEFAULT TRUE
+deleted                      BOOLEAN NOT NULL DEFAULT FALSE
+
+created_at                   TIMESTAMP NOT NULL
+updated_at                   TIMESTAMP NOT NULL
+last_active_at               TIMESTAMP
+
+
+{
+  "firebase_uid": "",
+  "email": "",
+  "email_verified": false,
+
+  "phone_number": "",
+  "phone_verified": false,
+
+  "display_name": "",
+  "provider_id": "",
+  "profile_picture_url": "",
+
+  "firebase_created_at": null,
+  "firebase_last_sign_in_at": null,
+
+  "full_name": "",
+  "first_name": "",
+  "last_name": "",
+
+  "gender": "",
+  "date_of_birth": null,
+  "nationality": "",
+  "language": "",
+  "timezone": "",
+
+  "bio": "",
+  "tagline": "",
+
+  "agency_name": "",
+  "agent_license_number": "",
+
+  "years_of_experience": 0,
+  "specialization": "",
+  "designation": "",
+
+  "city": "",
+  "state": "",
+  "country": "",
+
+  "address_line_1": "",
+  "address_line_2": "",
+  "postal_code": "",
+
+  "latitude": null,
+  "longitude": null,
+
+  "average_rating": 0.0,
+  "total_reviews": 0,
+  "active_listings": 0,
+  "total_listings": 0,
+  "sold_properties": 0,
+  "rented_properties": 0,
+  "total_leads": 0,
+
+  "kyc_verified": false,
+  "license_verified": false,
+  "background_verified": false,
+
+  "email_notifications_enabled": true,
+  "push_notifications_enabled": true,
+  "chat_notifications_enabled": true,
+  "marketing_notifications_enabled": false,
+
+  "status": "INCOMPLETE",
+
+  "active": true,
+  "deleted": false,
+
+  "created_at": null,
+  "updated_at": null,
+  "last_active_at": null
+}

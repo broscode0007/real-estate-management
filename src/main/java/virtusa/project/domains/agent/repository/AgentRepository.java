@@ -8,7 +8,15 @@ import org.springframework.stereotype.Repository;
 import virtusa.project.domains.agent.model.Agent;
 
 @Repository
-public interface AgentRepository extends JpaRepository<Agent, Long> {
-    // Allows us to quickly look up an agent profile when they pass their authentication token
+public interface AgentRepository extends JpaRepository<Agent, String> {
+
     Optional<Agent> findByFirebaseUid(String firebaseUid);
+
+    Optional<Agent> findByEmail(String email);
+
+    boolean existsByFirebaseUid(String firebaseUid);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByAgentLicenseNumber(String agentLicenseNumber);
 }
