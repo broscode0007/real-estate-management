@@ -4,7 +4,7 @@ package virtusa.project.domains.health.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +19,6 @@ public class DatabaseHealthController {
     // JdbcTemplate is a built-in Spring helper that runs raw SQL queries
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public DatabaseHealthController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -42,7 +41,7 @@ public class DatabaseHealthController {
                 return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(response);
             }
             
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
             // If the connection fails (bad password, network down, etc.), this block runs
             response.put("status", "DOWN");
             response.put("database", "PostgreSQL Connection FAILED");

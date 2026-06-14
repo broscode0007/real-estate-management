@@ -1,20 +1,21 @@
 package virtusa.project.domains.images.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.time.LocalDateTime;
 
-import software.amazon.awssdk.core.ResponseInputStream;
-
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import lombok.RequiredArgsConstructor;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import virtusa.project.domains.images.dto.ImageUploadResponse;
 import virtusa.project.domains.images.model.Image;
@@ -66,7 +67,7 @@ public class ImageServiceImpl implements ImageService {
                     .url("/images/" + image.getId())
                     .build();
 
-        } catch (Exception e) {
+        } catch (IOException | AwsServiceException | SdkClientException e) {
             throw new RuntimeException(e);
         }
     }
