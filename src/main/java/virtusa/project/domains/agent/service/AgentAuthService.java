@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import virtusa.project.domains.agent.model.Agent;
 import virtusa.project.domains.agent.model.AgentStatus;
 import virtusa.project.domains.agent.repository.AgentRepository;
+import virtusa.project.exceptions.AccountDeletedException;
 
 @Service
 @RequiredArgsConstructor
@@ -41,17 +42,29 @@ public class AgentAuthService {
                 decodedToken.isEmailVerified();
 
         Agent agent = agentRepository.findById(uid)
-                .orElseGet(() -> {
+                .orElse(null);
 
-                    Agent newAgent = new Agent();
+        // Existing account
 
-                    newAgent.setFirebaseUid(uid);
-                    newAgent.setStatus(AgentStatus.PENDING);
+        if (agent != null) {
 
-                    return newAgent;
-                });
+            // Soft deleted account
 
-        // Sync Firebase data every login
+            if (!agent.isActive() && agent.isDeleted()) {
+                throw new AccountDeletedException();
+            }
+
+        } else {
+
+            // First login
+
+            agent = new Agent();
+
+            agent.setFirebaseUid(uid);
+            agent.setStatus(AgentStatus.PENDING);
+        }
+
+        // Sync Firebase data
 
         agent.setEmail(email);
         agent.setEmailVerified(emailVerified);
@@ -73,8 +86,10 @@ public class AgentAuthService {
                 decodedToken.getIssuer()
         );
 
-        agent.setFirebaseLastSignInAt(LocalDateTime.now());
-        agent.setLastActiveAt(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+
+        agent.setFirebaseLastSignInAt(now);
+        agent.setLastActiveAt(now);
 
         return agentRepository.save(agent);
     }
