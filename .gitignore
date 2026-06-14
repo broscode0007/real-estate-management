@@ -1,3 +1,5 @@
+src/main/resources/application.properties
+
 test.txt
 prod.sh
 src/main/resources/VirtusaKey.pem
