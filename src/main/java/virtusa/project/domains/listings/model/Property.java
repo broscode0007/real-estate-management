@@ -1,324 +1,361 @@
-// package virtusa.project.domains.listings.model;
+package virtusa.project.domains.listings.model;
 
-// import jakarta.persistence.*;
-// import lombok.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
-// import java.math.BigDecimal;
-// import java.time.LocalDate;
-// import java.time.LocalDateTime;
-// import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import virtusa.project.domains.agent.model.Agent;
 
-// @Entity
-// @Table(name = "properties")
-// @Getter
-// @Setter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class Property {
+@Entity
+@Table(name = "properties")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Property {
 
-//     // ==================================================
-//     // PRIMARY
-//     // ==================================================
+    // ==================================================
+    // PRIMARY
+    // ==================================================
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private String propertyCode;
+    private String propertyCode;
 
-//     // ==================================================
-//     // BASIC INFORMATION
-//     // ==================================================
+    // ==================================================
+    // BASIC INFORMATION
+    // ==================================================
 
-//     private String title;
+    private String title;
 
-//     @Column(columnDefinition = "TEXT")
-//     private String description;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-//     @Enumerated(EnumType.STRING)
-//     private PropertyType propertyType;
+    @Enumerated(EnumType.STRING)
+    private PropertyType propertyType;
 
-//     @Enumerated(EnumType.STRING)
-//     private ListingType listingType;
+    @Enumerated(EnumType.STRING)
+    private ListingType listingType;
 
-//     @Enumerated(EnumType.STRING)
-//     private PropertyStatus status;
+    @Enumerated(EnumType.STRING)
+    private PropertyStatus status;
 
-//     private String projectName;
+    private String projectName;
 
-//     private String builderName;
+    private String builderName;
 
-//     private String ownerName;
+    private String ownerName;
 
-//     private Boolean verified;
+    private Boolean verified;
 
-//     private Boolean featured;
+    private Boolean featured;
 
-//     private Boolean premiumListing;
+    private Boolean premiumListing;
 
-//     // ==================================================
-//     // PRICING
-//     // ==================================================
+    // ==================================================
+    // PRICING
+    // ==================================================
 
-//     private BigDecimal startPrice;
+    private BigDecimal startPrice;
 
-//     private BigDecimal expectedPrice;
+    private BigDecimal expectedPrice;
 
-//     private BigDecimal maxPrice;
+    private BigDecimal maxPrice;
 
-//     private BigDecimal maintenanceCharge;
+    private BigDecimal maintenanceCharge;
 
-//     private BigDecimal securityDeposit;
+    private BigDecimal securityDeposit;
 
-//     private BigDecimal monthlyRent;
+    private BigDecimal monthlyRent;
 
-//     private BigDecimal pricePerSqFt;
+    private BigDecimal pricePerSqFt;
 
-//     private Boolean priceNegotiable;
+    private Boolean priceNegotiable;
 
-//     // ==================================================
-//     // LOCATION
-//     // ==================================================
+    // ==================================================
+    // LOCATION
+    // ==================================================
 
-//     private String address;
+    private String address;
 
-//     private String landmark;
+    private String landmark;
 
-//     private String locality;
+    private String locality;
 
-//     private String city;
+    private String city;
 
-//     private String district;
+    private String district;
 
-//     private String state;
+    private String state;
 
-//     private String country;
+    private String country;
 
-//     private String postalCode;
+    private String postalCode;
 
-//     private Double latitude;
+    private Double latitude;
 
-//     private Double longitude;
+    private Double longitude;
 
-//     // ==================================================
-//     // AREA DETAILS
-//     // ==================================================
+    @Column(length = 1000)
+    private String googleMapsUrl;
 
-//     private Double plotAreaSqFt;
+    // ==================================================
+    // AREA DETAILS
+    // ==================================================
 
-//     private Double builtUpAreaSqFt;
+    private Double plotAreaSqFt;
 
-//     private Double carpetAreaSqFt;
+    private Double builtUpAreaSqFt;
 
-//     private Double superBuiltUpAreaSqFt;
+    private Double carpetAreaSqFt;
 
-//     // ==================================================
-//     // PROPERTY DETAILS
-//     // ==================================================
+    private Double superBuiltUpAreaSqFt;
 
-//     private Integer bedrooms;
+    // ==================================================
+    // PROPERTY DETAILS
+    // ==================================================
 
-//     private Integer bathrooms;
+    private Integer bedrooms;
 
-//     private Integer balconies;
+    private Integer bathrooms;
 
-//     private Integer halls;
+    private Integer balconies;
 
-//     private Integer kitchens;
+    private Integer halls;
 
-//     private Integer parkingSpaces;
+    private Integer kitchens;
 
-//     private Integer floorNumber;
+    private Integer parkingSpaces;
 
-//     private Integer totalFloors;
+    private Integer floorNumber;
 
-//     private Integer ageOfProperty;
+    private Integer totalFloors;
 
-//     private Integer yearBuilt;
+    private Integer ageOfProperty;
 
-//     // ==================================================
-//     // ORIENTATION
-//     // ==================================================
+    private Integer yearBuilt;
 
-//     private String facingDirection;
+    // ==================================================
+    // ORIENTATION
+    // ==================================================
 
-//     private Boolean cornerProperty;
+    private String facingDirection;
 
-//     private Boolean vastuCompliant;
+    private Boolean cornerProperty;
 
-//     // ==================================================
-//     // FURNISHING
-//     // ==================================================
+    private Boolean vastuCompliant;
 
-//     private Boolean furnished;
+    // ==================================================
+    // FURNISHING
+    // ==================================================
 
-//     private Boolean semiFurnished;
+    private Boolean furnished;
 
-//     private Boolean unfurnished;
+    private Boolean semiFurnished;
 
-//     // ==================================================
-//     // AMENITIES
-//     // ==================================================
+    private Boolean unfurnished;
 
-//     private Boolean lift;
+    // ==================================================
+    // AMENITIES
+    // ==================================================
 
-//     private Boolean powerBackup;
+    private Boolean lift;
 
-//     private Boolean security24x7;
+    private Boolean powerBackup;
 
-//     private Boolean cctv;
+    private Boolean security24x7;
 
-//     private Boolean gatedCommunity;
+    private Boolean cctv;
 
-//     private Boolean swimmingPool;
+    private Boolean gatedCommunity;
 
-//     private Boolean gym;
+    private Boolean swimmingPool;
 
-//     private Boolean clubhouse;
+    private Boolean gym;
 
-//     private Boolean children'sPlayArea;
+    private Boolean clubhouse;
 
-//     private Boolean joggingTrack;
+    private Boolean childrensPlayArea;
 
-//     private Boolean indoorGames;
+    private Boolean joggingTrack;
 
-//     private Boolean outdoorSports;
+    private Boolean indoorGames;
 
-//     private Boolean park;
+    private Boolean outdoorSports;
 
-//     private Boolean visitorParking;
+    private Boolean park;
 
-//     private Boolean rainWaterHarvesting;
+    private Boolean visitorParking;
 
-//     private Boolean fireSafety;
+    private Boolean rainWaterHarvesting;
 
-//     private Boolean intercom;
+    private Boolean fireSafety;
 
-//     private Boolean wifiReady;
+    private Boolean intercom;
 
-//     // ==================================================
-//     // COMMERCIAL FEATURES
-//     // ==================================================
+    private Boolean wifiReady;
 
-//     private Boolean conferenceRoom;
+    // ==================================================
+    // COMMERCIAL FEATURES
+    // ==================================================
 
-//     private Boolean cafeteria;
+    private Boolean conferenceRoom;
 
-//     private Boolean receptionArea;
+    private Boolean cafeteria;
 
-//     private Boolean centralAirConditioning;
+    private Boolean receptionArea;
 
-//     // ==================================================
-//     // UTILITIES
-//     // ==================================================
+    private Boolean centralAirConditioning;
 
-//     private Boolean waterSupply;
+    // ==================================================
+    // UTILITIES
+    // ==================================================
 
-//     private Boolean sewageConnection;
+    private Boolean waterSupply;
 
-//     private Boolean electricityConnection;
+    private Boolean sewageConnection;
 
-//     private Boolean internetAvailable;
+    private Boolean electricityConnection;
 
-//     private Boolean gasPipeline;
+    private Boolean internetAvailable;
 
-//     // ==================================================
-//     // MEDIA
-//     // ==================================================
+    private Boolean gasPipeline;
 
-//     @ElementCollection
-//     private List<String> imageUrls;
+    // ==================================================
+    // MEDIA
+    // ==================================================
 
-//     @ElementCollection
-//     private List<String> videoUrls;
+    @ElementCollection
+    private List<String> imageUrls;
 
-//     @ElementCollection
-//     private List<String> floorPlanUrls;
+    @ElementCollection
+    private List<String> videoUrls;
 
-//     private String virtualTourUrl;
+    @ElementCollection
+    private List<String> floorPlanUrls;
 
-//     // ==================================================
-//     // NEARBY PLACES DISTANCES (KM)
-//     // ==================================================
+    private String virtualTourUrl;
 
-//     private Double nearestSchoolDistance;
+    // ==================================================
+    // NEARBY PLACES DISTANCES (KM)
+    // ==================================================
 
-//     private Double nearestCollegeDistance;
+    private Double nearestSchoolDistance;
 
-//     private Double nearestHospitalDistance;
+    private Double nearestCollegeDistance;
 
-//     private Double nearestMetroDistance;
+    private Double nearestHospitalDistance;
 
-//     private Double nearestBusStandDistance;
+    private Double nearestMetroDistance;
 
-//     private Double nearestRailwayStationDistance;
+    private Double nearestBusStandDistance;
 
-//     private Double nearestAirportDistance;
+    private Double nearestRailwayStationDistance;
 
-//     private Double nearestMallDistance;
+    private Double nearestAirportDistance;
 
-//     private Double nearestMarketDistance;
+    private Double nearestMallDistance;
 
-//     private Double nearestParkDistance;
+    private Double nearestMarketDistance;
 
-//     // ==================================================
-//     // LEGAL DETAILS
-//     // ==================================================
+    private Double nearestParkDistance;
 
-//     private Boolean approvedByAuthority;
+    // ==================================================
+    // LEGAL DETAILS
+    // ==================================================
 
-//     private Boolean titleClear;
+    private Boolean approvedByAuthority;
 
-//     private Boolean bankApproved;
+    private Boolean titleClear;
 
-//     private Boolean reraApproved;
+    private Boolean bankApproved;
 
-//     private String reraNumber;
+    private Boolean reraApproved;
 
-//     // ==================================================
-//     // RENTAL SPECIFIC
-//     // ==================================================
+    private String reraNumber;
 
-//     private Boolean bachelorsAllowed;
+    // ==================================================
+    // RENTAL SPECIFIC
+    // ==================================================
 
-//     private Boolean familyPreferred;
+    private Boolean bachelorsAllowed;
 
-//     private Boolean petsAllowed;
+    private Boolean familyPreferred;
 
-//     private Boolean smokingAllowed;
+    private Boolean petsAllowed;
 
-//     private Integer leaseDurationMonths;
+    private Boolean smokingAllowed;
 
-//     // ==================================================
-//     // SEO / SEARCH
-//     // ==================================================
+    private Integer leaseDurationMonths;
 
-//     private Long viewCount;
+    // ==================================================
+    // SEO / SEARCH
+    // ==================================================
 
-//     private Long favoriteCount;
+    private Long viewCount;
 
-//     private Long enquiryCount;
+    private Long favoriteCount;
 
-//     private Double averageRating;
+    private Long enquiryCount;
 
-//     // ==================================================
-//     // RELATIONSHIPS
-//     // ==================================================
+    private Double averageRating;
 
-//     @ManyToOne(fetch = FetchType.LAZY)
-//     @JoinColumn(name = "agent_id")
-//     private Agent agent;
+    // ==================================================
+    // RELATIONSHIPS
+    // ==================================================
 
-//     // ==================================================
-//     // AUDIT
-//     // ==================================================
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
 
-//     private LocalDate availableFrom;
+    // ==================================================
+    // AUDIT
+    // ==================================================
 
-//     private LocalDateTime listedAt;
+    private LocalDate availableFrom;
 
-//     private LocalDateTime updatedAt;
+    private LocalDateTime listedAt;
 
-//     private LocalDateTime createdAt;
-// }
+    private LocalDateTime updatedAt;
+
+    private LocalDateTime createdAt;
+    
+    @Column(nullable = false)
+    private Boolean reservationsEnabled;
+
+    @Column(nullable = false)
+    private Boolean immediateReservationEnabled;
+
+    @Column(nullable = false)
+    private Boolean normalReservationEnabled;
+
+    @Column(nullable = false)
+    private Boolean slowReservationEnabled;
+
+    private Integer maxNormalReservations;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
+}
+
