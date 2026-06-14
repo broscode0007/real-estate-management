@@ -6,7 +6,12 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import java.time.LocalDateTime;
 
+import software.amazon.awssdk.core.ResponseInputStream;
+
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -25,64 +30,74 @@ public class ImageServiceImpl implements ImageService {
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
 
-    @Value("${app.base-url}")
-    private String baseUrl;
-
     @Override
-    public ImageUploadResponse upload(MultipartFile file) throws IOException {
+    public ImageUploadResponse upload(MultipartFile file) {
 
-        String extension = getFileExtension(file.getOriginalFilename());
+        try {
 
-        String s3Key =
-                "images/" +
-                UUID.randomUUID() +
-                (extension.isBlank() ? "" : "." + extension);
+            String key =
+                    UUID.randomUUID() + "_" +
+                    file.getOriginalFilename();
 
-        PutObjectRequest putObjectRequest =
-                PutObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(s3Key)
-                        .contentType(file.getContentType())
-                        .build();
+            PutObjectRequest request =
+                    PutObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(key)
+                            .contentType(file.getContentType())
+                            .build();
 
-        s3Client.putObject(
-                putObjectRequest,
-                RequestBody.fromBytes(file.getBytes())
-        );
+            s3Client.putObject(
+                    request,
+                    RequestBody.fromBytes(file.getBytes())
+            );
 
-        Image image = Image.builder()
-                .s3Key(s3Key)
-                .originalFilename(file.getOriginalFilename())
-                .contentType(file.getContentType())
-                .sizeBytes(file.getSize())
-                .build();
+            Image image = imageRepository.save(
+                    Image.builder()
+                            .s3Key(key)
+                            .contentType(file.getContentType())
+                            .size(file.getSize())
+                            .originalFileName(file.getOriginalFilename())
+                            .createdAt(LocalDateTime.now())
+                            .build()
+            );
 
-        image = imageRepository.save(image);
+            return ImageUploadResponse.builder()
+                    .id(image.getId())
+                    .url("/images/" + image.getId())
+                    .build();
 
-        return ImageUploadResponse.builder()
-                .id(image.getId())
-                .url(baseUrl + "/image/" + image.getId())
-                .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public String getImageUrl(UUID imageId) {
+        @Override
+        public byte[] getImage(UUID imageId) {
 
         Image image = imageRepository.findById(imageId)
-                .orElseThrow(() ->
-                        new RuntimeException("Image not found"));
+                .orElseThrow();
 
-        return baseUrl + "/image/" + image.getId();
-    }
+        GetObjectRequest request =
+                GetObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(image.getS3Key())
+                        .build();
 
-    private String getFileExtension(String filename) {
+        try (ResponseInputStream<GetObjectResponse> stream =
+                        s3Client.getObject(request)) {
 
-        if (filename == null || !filename.contains(".")) {
-            return "";
+                return stream.readAllBytes();
+
+        } catch (IOException e) {
+                throw new RuntimeException(e);
+        }
         }
 
-        return filename.substring(
-                filename.lastIndexOf('.') + 1
-        );
-    }
+        @Override
+        public String getContentType(UUID imageId) {
+
+        return imageRepository.findById(imageId)
+                .orElseThrow()
+                .getContentType();
+        }
 }

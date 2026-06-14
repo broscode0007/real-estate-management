@@ -1,6 +1,5 @@
 package virtusa.project.domains.images.service;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +8,9 @@ import virtusa.project.domains.images.dto.ImageUploadResponse;
 
 public interface ImageService {
 
-    ImageUploadResponse upload(MultipartFile file) throws IOException;
+    ImageUploadResponse upload(MultipartFile file);
 
-    String getImageUrl(UUID imageId);
+    byte[] getImage(UUID imageId);
+
+    String getContentType(UUID imageId);
 }

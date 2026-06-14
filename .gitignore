@@ -1,5 +1,5 @@
 src/main/resources/application.properties
-
+OpenAPI definition.zip
 test.txt
 prod.sh
 src/main/resources/VirtusaKey.pem
