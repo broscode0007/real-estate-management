@@ -18,6 +18,7 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/api/v1/health/db", 
                     "/api/v1/agents/auth/sync",
+                    "/api/v1/agents/profile",
                     "/actuator/**",
                     "/v3/api-docs/**",      // Required for documentation data
                     "/swagger-ui/**",       // Required for the UI asset layout

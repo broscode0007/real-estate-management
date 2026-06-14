@@ -1,0 +1,40 @@
+info:
+  name: FrontendSignUP
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={{fireBaseApiKey}}
+  headers:
+    - name: Content-Type
+      value: application/json
+  params:
+    - name: key
+      value: "{{fireBaseApiKey}}"
+      type: query
+  body:
+    type: json
+    data: |-
+      {
+        "email":"koushikbabuforwork@gmail.com",
+        "password":"Password123",
+        "returnSecureToken":true
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        bru.setGlobalEnvVar("token", body.idToken);
+
+        console.log("Saved token");
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

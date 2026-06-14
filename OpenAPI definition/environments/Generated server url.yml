@@ -1,4 +1,4 @@
 name: Generated server url
 variables:
   - name: baseUrl
-    value: http://localhost:8080
+    value: https://rems.clqit.in

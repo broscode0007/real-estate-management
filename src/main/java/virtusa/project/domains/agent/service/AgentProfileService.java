@@ -10,12 +10,29 @@ import lombok.RequiredArgsConstructor;
 import virtusa.project.domains.agent.dto.AgentProfileUpdateRequest;
 import virtusa.project.domains.agent.model.Agent;
 import virtusa.project.domains.agent.repository.AgentRepository;
+import virtusa.project.exceptions.AccountDeletedException;
+import virtusa.project.exceptions.ResourceNotFoundException;
 
 @Service
 @RequiredArgsConstructor
 public class AgentProfileService {
 
+
+
     private final AgentRepository agentRepository;
+
+    private Agent getActiveProfile(String firebaseUid) {
+
+        Agent agent = agentRepository.findById(firebaseUid)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Agent not found"));
+
+        if (agent.isAccountDeleted()) {
+            throw new AccountDeletedException();
+        }
+
+        return agent;
+    }
 
     public String getFirebaseUidFromToken(String idToken)
             throws Exception {
@@ -28,9 +45,7 @@ public class AgentProfileService {
 
     public Agent getProfile(String firebaseUid) {
 
-        return agentRepository.findById(firebaseUid)
-                .orElseThrow(() ->
-                        new RuntimeException("Agent not found"));
+        return getActiveProfile(firebaseUid);
     }
 
     @Transactional
@@ -38,7 +53,7 @@ public class AgentProfileService {
             String firebaseUid,
             AgentProfileUpdateRequest request) {
 
-        Agent agent = getProfile(firebaseUid);
+        Agent agent = getActiveProfile(firebaseUid);
 
         // Contact
 
@@ -129,7 +144,7 @@ public class AgentProfileService {
             String firebaseUid,
             AgentProfileUpdateRequest request) {
 
-        Agent agent = getProfile(firebaseUid);
+        Agent agent = getActiveProfile(firebaseUid);
 
         // Contact
 
@@ -253,7 +268,7 @@ public class AgentProfileService {
     @Transactional
     public void deleteProfile(String firebaseUid) {
 
-        Agent agent = getProfile(firebaseUid);
+        Agent agent = getActiveProfile(firebaseUid);
 
         agent.setActive(false);
         agent.setDeleted(true);

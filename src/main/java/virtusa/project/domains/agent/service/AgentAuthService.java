@@ -50,9 +50,9 @@ public class AgentAuthService {
 
             // Soft deleted account
 
-            if (!agent.isActive() && agent.isDeleted()) {
-                throw new AccountDeletedException();
-            }
+        if (agent.isAccountDeleted()) {
+            throw new AccountDeletedException();
+        }
 
         } else {
 

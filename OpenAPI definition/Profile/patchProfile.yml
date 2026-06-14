@@ -1,0 +1,171 @@
+info:
+  name: patchProfile
+  type: http
+  seq: 3
+  tags:
+    - agent-profile-controller
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/api/v1/agents/profile"
+  headers:
+    - name: Authorization
+      value: ""
+  body:
+    type: json
+    data: |-
+      {
+      //   "phoneNumber": "+919876543210",
+      //   "displayName": "koushikbabu",
+      //   "profilePictureUrl": "https://example.com/images/profile.jpg",
+
+      //   "fullName": "Koushik Babu",
+      //   "firstName": "Koushik",
+      //   "lastName": "Babu",
+      //   "gender": "Male",
+      //   "dateOfBirth": "1998-05-15",
+      //   "nationality": "Indian",
+      //   "language": "English, Tamil",
+      //   "timezone": "Asia/Kolkata",
+
+      //   "bio": "Experienced real estate agent specializing in residential and commercial properties across Chennai.",
+      //   "tagline": "Helping you find your perfect property.",
+
+      //   "agencyName": "Virtusa Realty",
+      //   "agentLicenseNumber": "TN-REA-2026-00123",
+      //   "yearsOfExperience": 5,
+      //   "specialization": "Residential Sales, Commercial Leasing",
+      //   "designation": "Senior Property Consultant",
+
+      //   "city": "Chennai",
+      //   "state": "Tamil Nadu",
+      //   "country": "India",
+      //   "addressLine1": "123 Anna Salai",
+      //   "addressLine2": "Teynampet",
+      //   "postalCode": "600018",
+      //   "latitude": 13.0827,
+      //   "longitude": 80.2707,
+
+        "emailNotificationsEnabled": false,
+        "pushNotificationsEnabled": false,
+        "chatNotificationsEnabled": false,
+        "marketingNotificationsEnabled": false
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{baseUrl}}/api/v1/agents/profile"
+      method: PATCH
+      headers:
+        - name: Authorization
+          value: ""
+      body:
+        type: json
+        data: |-
+          {
+            "phoneNumber": "",
+            "displayName": "",
+            "profilePictureUrl": "",
+            "fullName": "",
+            "firstName": "",
+            "lastName": "",
+            "gender": "",
+            "dateOfBirth": "",
+            "nationality": "",
+            "language": "",
+            "timezone": "",
+            "bio": "",
+            "tagline": "",
+            "agencyName": "",
+            "agentLicenseNumber": "",
+            "yearsOfExperience": 0,
+            "specialization": "",
+            "designation": "",
+            "city": "",
+            "state": "",
+            "country": "",
+            "addressLine1": "",
+            "addressLine2": "",
+            "postalCode": "",
+            "latitude": 0,
+            "longitude": 0,
+            "emailNotificationsEnabled": false,
+            "pushNotificationsEnabled": false,
+            "chatNotificationsEnabled": false,
+            "marketingNotificationsEnabled": false
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: "*/*"
+      body:
+        type: text
+        data: |-
+          {
+            "firebaseUid": "",
+            "email": "",
+            "emailVerified": false,
+            "phoneNumber": "",
+            "phoneVerified": false,
+            "displayName": "",
+            "providerId": "",
+            "profilePictureUrl": "",
+            "firebaseCreatedAt": "",
+            "firebaseLastSignInAt": "",
+            "fullName": "",
+            "firstName": "",
+            "lastName": "",
+            "gender": "",
+            "dateOfBirth": "",
+            "nationality": "",
+            "language": "",
+            "timezone": "",
+            "bio": "",
+            "tagline": "",
+            "agencyName": "",
+            "agentLicenseNumber": "",
+            "yearsOfExperience": 0,
+            "specialization": "",
+            "designation": "",
+            "city": "",
+            "state": "",
+            "country": "",
+            "addressLine1": "",
+            "addressLine2": "",
+            "postalCode": "",
+            "latitude": 0,
+            "longitude": 0,
+            "averageRating": 0,
+            "totalReviews": 0,
+            "activeListings": 0,
+            "totalListings": 0,
+            "soldProperties": 0,
+            "rentedProperties": 0,
+            "totalLeads": 0,
+            "kycVerified": false,
+            "licenseVerified": false,
+            "backgroundVerified": false,
+            "emailNotificationsEnabled": false,
+            "pushNotificationsEnabled": false,
+            "chatNotificationsEnabled": false,
+            "marketingNotificationsEnabled": false,
+            "status": "PENDING",
+            "active": false,
+            "deleted": false,
+            "createdAt": "",
+            "updatedAt": "",
+            "lastActiveAt": ""
+          }

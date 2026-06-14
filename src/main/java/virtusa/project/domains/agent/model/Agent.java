@@ -226,4 +226,7 @@ public class Agent {
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+    public boolean isAccountDeleted() {
+        return !this.active && this.deleted;
+    }
 }
