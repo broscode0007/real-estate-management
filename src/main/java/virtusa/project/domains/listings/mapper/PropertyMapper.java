@@ -27,6 +27,7 @@ public final class PropertyMapper {
                 .state(request.getState())
                 .country(request.getCountry())
                 .postalCode(request.getPostalCode())
+                .district(request.getDistrict())
                 .latitude(request.getLatitude())
                 .longitude(request.getLongitude())
                 .builtUpAreaSqFt(request.getBuiltUpAreaSqFt())
@@ -64,6 +65,7 @@ public final class PropertyMapper {
         property.setAddress(request.getAddress());
         property.setLocality(request.getLocality());
         property.setCity(request.getCity());
+        property.setDistrict(request.getDistrict());
         property.setState(request.getState());
         property.setCountry(request.getCountry());
         property.setPostalCode(request.getPostalCode());

@@ -1,0 +1,69 @@
+info:
+  name: getProperty
+  type: http
+  seq: 2
+  tags:
+    - property-controller
+
+http:
+  method: GET
+  url: "{{baseUrl}}/api/v1/agents/properties/{{agent_property_id}}"
+  auth:
+    type: bearer
+    token: "{{agent_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{baseUrl}}/api/v1/agents/properties/:propertyId"
+      method: GET
+      params:
+        - name: propertyId
+          value: ""
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: "*/*"
+      body:
+        type: text
+        data: |-
+          {
+            "id": 0,
+            "propertyCode": "",
+            "title": "",
+            "description": "",
+            "propertyType": "APARTMENT",
+            "listingType": "SALE",
+            "status": "DRAFT",
+            "startPrice": 0,
+            "expectedPrice": 0,
+            "maxPrice": 0,
+            "locality": "",
+            "city": "",
+            "state": "",
+            "country": "",
+            "latitude": 0,
+            "longitude": 0,
+            "bedrooms": 0,
+            "bathrooms": 0,
+            "parkingSpaces": 0,
+            "builtUpAreaSqFt": 0,
+            "averageRating": 0,
+            "totalReviews": 0,
+            "viewCount": 0,
+            "favoriteCount": 0,
+            "verified": false,
+            "featured": false,
+            "imageUrls": [],
+            "createdAt": ""
+          }

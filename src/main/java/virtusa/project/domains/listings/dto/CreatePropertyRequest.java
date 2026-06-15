@@ -55,4 +55,5 @@ public class CreatePropertyRequest {
     private Boolean normalReservationEnabled;
     private Boolean slowReservationEnabled;
     private Integer maxNormalReservations;
+    private String district;
 }

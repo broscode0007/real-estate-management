@@ -1,0 +1,119 @@
+info:
+  name: searchProperties
+  type: http
+  seq: 7
+  tags:
+    - property-controller
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/v1/agents/properties/search"
+  body:
+    type: json
+    data: |-
+      {
+        "city": "Chennai",
+        "propertyType": "VILLA",
+        "listingType": "SALE",
+        "minPrice": 5000000,
+        "maxPrice": 15000000,
+        "minBedrooms": 3,
+        "page": 0,
+        "size": 20
+      }
+  auth:
+    type: bearer
+    token: "{{agent_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{baseUrl}}/api/v1/agents/properties/search"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "query": "",
+            "city": "",
+            "state": "",
+            "locality": "",
+            "propertyType": "APARTMENT",
+            "listingType": "SALE",
+            "minPrice": 0,
+            "maxPrice": 0,
+            "minAreaSqFt": 0,
+            "maxAreaSqFt": 0,
+            "minBedrooms": 0,
+            "minBathrooms": 0,
+            "minRating": 0,
+            "reservationsEnabled": false,
+            "page": 0,
+            "size": 0,
+            "sortBy": "",
+            "sortDirection": ""
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: "*/*"
+      body:
+        type: text
+        data: |-
+          {
+            "totalElements": 0,
+            "totalPages": 0,
+            "pageable": {
+              "paged": false,
+              "pageNumber": 0,
+              "pageSize": 0,
+              "offset": 0,
+              "sort": {
+                "sorted": false,
+                "empty": false,
+                "unsorted": false
+              },
+              "unpaged": false
+            },
+            "size": 0,
+            "content": [
+              {
+                "id": 0,
+                "propertyCode": "",
+                "title": "",
+                "propertyType": "APARTMENT",
+                "listingType": "SALE",
+                "expectedPrice": 0,
+                "locality": "",
+                "city": "",
+                "bedrooms": 0,
+                "bathrooms": 0,
+                "parkingSpaces": 0,
+                "builtUpAreaSqFt": 0,
+                "averageRating": 0,
+                "totalReviews": 0,
+                "verified": false,
+                "featured": false,
+                "thumbnailUrl": ""
+              }
+            ],
+            "number": 0,
+            "sort": {
+              "sorted": false,
+              "empty": false,
+              "unsorted": false
+            },
+            "numberOfElements": 0,
+            "first": false,
+            "last": false,
+            "empty": false
+          }

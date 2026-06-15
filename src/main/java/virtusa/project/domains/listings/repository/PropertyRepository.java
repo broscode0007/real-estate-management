@@ -1,16 +1,21 @@
 package virtusa.project.domains.listings.repository;
 
-import java.util.List;
+import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import virtusa.project.domains.listings.model.Property;
 
 public interface PropertyRepository
-        extends JpaRepository<Property, Long>,
+        extends JpaRepository<Property, UUID>,
                 JpaSpecificationExecutor<Property> {
 
-    List<Property> findByAgentFirebaseUid(String firebaseUid);
+    Page<Property> findByAgentFirebaseUid(
+        String firebaseUid,
+        Pageable pageable);
+    
 
 }

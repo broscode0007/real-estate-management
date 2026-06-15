@@ -53,7 +53,7 @@ http:
       }
   auth:
     type: bearer
-    token: "{{token}}"
+    token: "{{agent_token}}"
 
 settings:
   encodeUrl: true

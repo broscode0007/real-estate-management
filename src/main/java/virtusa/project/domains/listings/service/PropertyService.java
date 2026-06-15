@@ -1,5 +1,7 @@
 package virtusa.project.domains.listings.service;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 
 import virtusa.project.domains.listings.dto.CreatePropertyRequest;
@@ -15,12 +17,12 @@ public interface PropertyService {
             CreatePropertyRequest request);
 
     PropertyResponse updateProperty(
-            Long propertyId,
+            UUID propertyId,
             String agentFirebaseUid,
             UpdatePropertyRequest request);
 
     PropertyResponse getProperty(
-            Long propertyId);
+            UUID propertyId);
 
     Page<PropertySummaryResponse> searchProperties(
             PropertySearchRequest request);
@@ -29,8 +31,11 @@ public interface PropertyService {
             String agentFirebaseUid,
             int page,
             int size);
+void deactivateProperty(
+        UUID propertyId,
+        String agentFirebaseUid);
 
     void deleteProperty(
-            Long propertyId,
-            String agentFirebaseUid);
+        UUID propertyId,
+        String agentFirebaseUid);
 }

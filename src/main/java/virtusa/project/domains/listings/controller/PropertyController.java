@@ -1,9 +1,12 @@
 package virtusa.project.domains.listings.controller;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import virtusa.project.domains.agent.service.AgentProfileService;
 import virtusa.project.domains.listings.dto.CreatePropertyRequest;
 import virtusa.project.domains.listings.dto.PropertyResponse;
 import virtusa.project.domains.listings.dto.PropertySearchRequest;
@@ -22,20 +26,25 @@ import virtusa.project.domains.listings.dto.UpdatePropertyRequest;
 import virtusa.project.domains.listings.service.PropertyService;
 
 @RestController
-@RequestMapping("/properties")
+@RequestMapping("/api/v1/agents/properties")
 @RequiredArgsConstructor
 public class PropertyController {
 
     private final PropertyService propertyService;
+    private final AgentProfileService agentProfileService;
 
     @PostMapping
     public ResponseEntity<PropertyResponse> createProperty(
-            @RequestHeader("X-User-Id") String agentFirebaseUid,
-            @RequestBody CreatePropertyRequest request) {
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody CreatePropertyRequest request)
+            throws Exception {
+
+        String firebaseUid =
+                getFirebaseUid(authorizationHeader);
 
         return ResponseEntity.ok(
                 propertyService.createProperty(
-                        agentFirebaseUid,
+                        firebaseUid,
                         request
                 )
         );
@@ -43,14 +52,18 @@ public class PropertyController {
 
     @PutMapping("/{propertyId}")
     public ResponseEntity<PropertyResponse> updateProperty(
-            @PathVariable Long propertyId,
-            @RequestHeader("X-User-Id") String agentFirebaseUid,
-            @RequestBody UpdatePropertyRequest request) {
+            @PathVariable UUID propertyId,
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody UpdatePropertyRequest request)
+            throws Exception {
+
+        String firebaseUid =
+                getFirebaseUid(authorizationHeader);
 
         return ResponseEntity.ok(
                 propertyService.updateProperty(
                         propertyId,
-                        agentFirebaseUid,
+                        firebaseUid,
                         request
                 )
         );
@@ -58,7 +71,7 @@ public class PropertyController {
 
     @GetMapping("/{propertyId}")
     public ResponseEntity<PropertyResponse> getProperty(
-            @PathVariable Long propertyId) {
+            @PathVariable UUID propertyId) {
 
         return ResponseEntity.ok(
                 propertyService.getProperty(propertyId)
@@ -76,13 +89,17 @@ public class PropertyController {
 
     @GetMapping("/mine")
     public ResponseEntity<Page<PropertySummaryResponse>> getMyProperties(
-            @RequestHeader("X-User-Id") String agentFirebaseUid,
+            @RequestHeader("Authorization") String authorizationHeader,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "20") int size)
+            throws Exception {
+
+        String firebaseUid =
+                getFirebaseUid(authorizationHeader);
 
         return ResponseEntity.ok(
                 propertyService.getAgentProperties(
-                        agentFirebaseUid,
+                        firebaseUid,
                         page,
                         size
                 )
@@ -90,15 +107,56 @@ public class PropertyController {
     }
 
     @DeleteMapping("/{propertyId}")
-    public ResponseEntity<Void> deleteProperty(
-            @PathVariable Long propertyId,
-            @RequestHeader("X-User-Id") String agentFirebaseUid) {
+    public ResponseEntity<String> deleteProperty(
+            @PathVariable UUID propertyId,
+            @RequestHeader("Authorization") String authorizationHeader)
+            throws Exception {
+
+        String firebaseUid =
+                getFirebaseUid(authorizationHeader);
 
         propertyService.deleteProperty(
                 propertyId,
-                agentFirebaseUid
+                firebaseUid
         );
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(
+        "Property deactivated successfully");
+    }
+    @PatchMapping("/{propertyId}/deactivate")
+        public ResponseEntity<Void> deactivateProperty(
+                @PathVariable UUID propertyId,
+                @RequestHeader("Authorization")
+                String authorizationHeader)
+                throws Exception {
+
+        String firebaseUid =
+                getFirebaseUid(
+                        authorizationHeader);
+
+        propertyService.deactivateProperty(
+                propertyId,
+                firebaseUid);
+
+        return ResponseEntity.noContent()
+                .build();
+        }
+
+    private String getFirebaseUid(
+            String authorizationHeader)
+            throws Exception {
+
+        if (authorizationHeader == null ||
+                !authorizationHeader.startsWith("Bearer ")) {
+
+            throw new IllegalArgumentException(
+                    "Missing or invalid Authorization header");
+        }
+
+        String idToken =
+                authorizationHeader.substring(7);
+
+        return agentProfileService
+                .getFirebaseUidFromToken(idToken);
     }
 }

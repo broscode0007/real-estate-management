@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -17,6 +18,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,23 +41,23 @@ public class Property {
     // ==================================================
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String propertyCode;
 
     // ==================================================
     // BASIC INFORMATION
     // ==================================================
-
+    @NotBlank
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
-
+    @NotNull
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
-
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ListingType listingType;
 
@@ -67,20 +70,23 @@ public class Property {
 
     private String ownerName;
 
-    private Boolean verified;
+    @Builder.Default
+    private Boolean verified = false;
 
-    private Boolean featured;
+    @Builder.Default
+    private Boolean featured = false;
 
-    private Boolean premiumListing;
+    @Builder.Default
+    private Boolean premiumListing = false;
 
     // ==================================================
     // PRICING
     // ==================================================
-
+    @NotNull
     private BigDecimal startPrice;
-
+    @NotNull
     private BigDecimal expectedPrice;
-
+    @NotNull
     private BigDecimal maxPrice;
 
     private BigDecimal maintenanceCharge;
@@ -96,21 +102,21 @@ public class Property {
     // ==================================================
     // LOCATION
     // ==================================================
-
+    @NotBlank
     private String address;
 
     private String landmark;
 
     private String locality;
-
+    @NotBlank
     private String city;
-
+    @NotBlank
     private String district;
-
+    @NotBlank
     private String state;
-
+    @NotBlank
     private String country;
-
+    @NotBlank
     private String postalCode;
 
     private Double latitude;
@@ -313,13 +319,17 @@ public class Property {
     // SEO / SEARCH
     // ==================================================
 
-    private Long viewCount;
+    @Builder.Default
+    private Long viewCount = 0L;
 
-    private Long favoriteCount;
+    @Builder.Default
+    private Long favoriteCount = 0L;
 
-    private Long enquiryCount;
+    @Builder.Default
+    private Long enquiryCount = 0L;
 
-    private Double averageRating;
+    @Builder.Default
+    private Double averageRating = 0.0;
 
     // ==================================================
     // RELATIONSHIPS
@@ -341,21 +351,27 @@ public class Property {
 
     private LocalDateTime createdAt;
     
+    @Builder.Default
     @Column(nullable = false)
-    private Boolean reservationsEnabled;
+    private Boolean reservationsEnabled = false;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Boolean immediateReservationEnabled = false;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Boolean normalReservationEnabled = false;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private Boolean slowReservationEnabled = false;
+
+    @Builder.Default
+    private Integer maxNormalReservations = 0;
 
     @Column(nullable = false)
-    private Boolean immediateReservationEnabled;
-
-    @Column(nullable = false)
-    private Boolean normalReservationEnabled;
-
-    @Column(nullable = false)
-    private Boolean slowReservationEnabled;
-
-    private Integer maxNormalReservations;
-
-    @Column(nullable = false)
+    @Builder.Default
     private Boolean deleted = false;
 }
 

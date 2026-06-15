@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ import virtusa.project.domains.listings.mapper.PropertyMapper;
 import virtusa.project.domains.listings.model.Property;
 import virtusa.project.domains.listings.model.PropertyStatus;
 import virtusa.project.domains.listings.repository.PropertyRepository;
+import virtusa.project.domains.listings.specification.PropertySpecification;
+import virtusa.project.exceptions.BadRequestException;
 import virtusa.project.exceptions.ResourceNotFoundException;
 import virtusa.project.exceptions.UnauthorizedException;
 
@@ -61,7 +65,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyResponse updateProperty(
-            Long propertyId,
+            UUID propertyId,
             String agentFirebaseUid,
             UpdatePropertyRequest request) {
 
@@ -94,7 +98,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyResponse getProperty(
-            Long propertyId) {
+            UUID propertyId) {
 
         Property property = propertyRepository
                 .findById(propertyId)
@@ -105,28 +109,48 @@ public class PropertyServiceImpl implements PropertyService {
         return PropertyMapper.toResponse(property);
     }
 
-    @Override
-    public Page<PropertySummaryResponse> searchProperties(
-            PropertySearchRequest request) {
+        @Override
+        public Page<PropertySummaryResponse> searchProperties(
+                PropertySearchRequest request) {
 
-        throw new UnsupportedOperationException(
-                "Search not implemented yet");
-    }
+        Pageable pageable =
+                PageRequest.of(
+                        request.getPage() == null
+                                ? 0
+                                : request.getPage(),
 
-    @Override
-    public Page<PropertySummaryResponse> getAgentProperties(
-            String agentFirebaseUid,
-            int page,
-            int size) {
+                        request.getSize() == null
+                                ? 20
+                                : request.getSize());
 
-        throw new UnsupportedOperationException(
-                "Not implemented yet");
-    }
+        return propertyRepository
+                .findAll(
+                        PropertySpecification
+                                .search(request),
+                        pageable)
+                .map(PropertyMapper::toSummary);
+        }
 
-    @Override
-    public void deleteProperty(
-            Long propertyId,
-            String agentFirebaseUid) {
+        @Override
+        public Page<PropertySummaryResponse> getAgentProperties(
+                String agentFirebaseUid,
+                int page,
+                int size) {
+
+        Pageable pageable =
+                PageRequest.of(page, size);
+
+        return propertyRepository
+                .findByAgentFirebaseUid(
+                        agentFirebaseUid,
+                        pageable)
+                .map(PropertyMapper::toSummary);
+        }
+
+        @Override
+        public void deleteProperty(
+                UUID propertyId,
+                String agentFirebaseUid) {
 
         Property property = propertyRepository
                 .findById(propertyId)
@@ -138,17 +162,47 @@ public class PropertyServiceImpl implements PropertyService {
                 .getFirebaseUid()
                 .equals(agentFirebaseUid)) {
 
-            throw new UnauthorizedException(
-                    "You do not own this property");
+                throw new UnauthorizedException(
+                        "You do not own this property");
         }
 
-        property.setDeleted(true);
+        if (Boolean.TRUE.equals(
+                property.getVerified())) {
+
+                throw new BadRequestException(
+                        "Verified properties cannot be deleted");
+        }
+
+        propertyRepository.delete(property);
+        }
+
+        @Override
+        public void deactivateProperty(
+                UUID propertyId,
+                String agentFirebaseUid) {
+
+        Property property = propertyRepository
+                .findById(propertyId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Property not found"));
+
+        if (!property.getAgent()
+                .getFirebaseUid()
+                .equals(agentFirebaseUid)) {
+
+                throw new UnauthorizedException(
+                        "You do not own this property");
+        }
+
+        property.setStatus(
+                PropertyStatus.INACTIVE);
 
         property.setUpdatedAt(
                 LocalDateTime.now());
 
         propertyRepository.save(property);
-    }
+        }
 
 private String generatePropertyCode() {
 

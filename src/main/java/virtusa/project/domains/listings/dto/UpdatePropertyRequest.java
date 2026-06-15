@@ -74,4 +74,6 @@ public class UpdatePropertyRequest {
     private Boolean slowReservationEnabled;
 
     private Integer maxNormalReservations;
+
+    private String district;
 }

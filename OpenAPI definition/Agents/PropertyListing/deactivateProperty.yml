@@ -1,13 +1,13 @@
 info:
-  name: syncAgentWithFirebase
+  name: deactivateProperty
   type: http
-  seq: 3
+  seq: 6
   tags:
-    - agent-auth-controller
+    - property-controller
 
 http:
-  method: POST
-  url: "{{baseUrl}}/api/v1/agents/auth/sync"
+  method: PATCH
+  url: "{{baseUrl}}/api/v1/agents/properties/{{agent_property_id}}/deactivate"
   headers:
     - name: Authorization
       value: ""
@@ -25,17 +25,18 @@ examples:
   - name: 200 Response
     description: OK
     request:
-      url: "{{baseUrl}}/api/v1/agents/auth/sync"
-      method: POST
+      url: "{{baseUrl}}/api/v1/agents/properties/:propertyId/deactivate"
+      method: PATCH
       headers:
         - name: Authorization
           value: ""
+      params:
+        - name: propertyId
+          value: ""
+          type: path
     response:
       status: 200
       statusText: OK
-      headers:
-        - name: Content-Type
-          value: "*/*"
       body:
         type: text
-        data: "{}"
+        data: ""

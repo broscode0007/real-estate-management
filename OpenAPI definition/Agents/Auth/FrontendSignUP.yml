@@ -29,7 +29,7 @@ runtime:
       code: |-
         const body = res.getBody();
 
-        bru.setGlobalEnvVar("token", body.idToken);
+        bru.setGlobalEnvVar("agent_token", body.idToken);
 
         console.log("Saved token");
 

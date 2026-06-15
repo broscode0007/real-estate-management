@@ -17,7 +17,7 @@ http:
           - /home/koushik/Downloads/Beige & White Minimalist Collage Instagram Post(3).png
   auth:
     type: bearer
-    token: "{{token}}"
+    token: "{{agent_token}}"
 
 runtime:
   scripts:
@@ -25,7 +25,7 @@ runtime:
       code: |-
         const body = res.getBody();
 
-        bru.setGlobalEnvVar("img_id", body.id);
+        bru.setGlobalEnvVar("agent_img_id", body.id);
 
         console.log("Saved ID");
 

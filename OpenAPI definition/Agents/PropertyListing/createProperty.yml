@@ -1,0 +1,153 @@
+info:
+  name: createProperty
+  type: http
+  seq: 1
+  tags:
+    - property-controller
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/v1/agents/properties"
+  headers:
+    - name: Authorization
+      value: ""
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Updated Luxury Villa",
+        "description": "Recently renovated villa",
+
+        "propertyType": "VILLA",
+        "listingType": "SALE",
+        "status": "ACTIVE",
+
+        "expectedPrice": 9200000,
+        "startPrice": 8500000,
+        "maxPrice": 9500000,
+
+        "address": "12 Anna Nagar West",
+        "locality": "Anna Nagar",
+        "city": "Chennai",
+        "postalCode": "600040",
+        "district": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India",
+        
+
+        "latitude": 13.0878,
+        "longitude": 80.2101,
+
+        "builtUpAreaSqFt": 2600,
+        "carpetAreaSqFt": 2400,
+
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "balconies": 2,
+        "parkingSpaces": 3,
+
+        "reservationsEnabled": true,
+        "immediateReservationEnabled": true,
+        "normalReservationEnabled": true,
+        "slowReservationEnabled": false,
+        "maxNormalReservations": 15
+      }
+  auth:
+    type: bearer
+    token: "{{agent_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        bru.setGlobalEnvVar("agent_property_id", body.id);
+
+        console.log("Saved ID");
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{baseUrl}}/api/v1/agents/properties"
+      method: POST
+      headers:
+        - name: Authorization
+          value: ""
+      body:
+        type: json
+        data: |-
+          {
+            "title": "",
+            "description": "",
+            "propertyType": "APARTMENT",
+            "listingType": "SALE",
+            "startPrice": 0,
+            "expectedPrice": 0,
+            "maxPrice": 0,
+            "address": "",
+            "locality": "",
+            "city": "",
+            "state": "",
+            "country": "",
+            "postalCode": "",
+            "latitude": 0,
+            "longitude": 0,
+            "builtUpAreaSqFt": 0,
+            "carpetAreaSqFt": 0,
+            "bedrooms": 0,
+            "bathrooms": 0,
+            "balconies": 0,
+            "parkingSpaces": 0,
+            "reservationsEnabled": false,
+            "immediateReservationEnabled": false,
+            "normalReservationEnabled": false,
+            "slowReservationEnabled": false,
+            "maxNormalReservations": 0
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: "*/*"
+      body:
+        type: text
+        data: |-
+          {
+            "id": 0,
+            "propertyCode": "",
+            "title": "",
+            "description": "",
+            "propertyType": "APARTMENT",
+            "listingType": "SALE",
+            "status": "DRAFT",
+            "startPrice": 0,
+            "expectedPrice": 0,
+            "maxPrice": 0,
+            "locality": "",
+            "city": "",
+            "state": "",
+            "country": "",
+            "latitude": 0,
+            "longitude": 0,
+            "bedrooms": 0,
+            "bathrooms": 0,
+            "parkingSpaces": 0,
+            "builtUpAreaSqFt": 0,
+            "averageRating": 0,
+            "totalReviews": 0,
+            "viewCount": 0,
+            "favoriteCount": 0,
+            "verified": false,
+            "featured": false,
+            "imageUrls": [],
+            "createdAt": ""
+          }

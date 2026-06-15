@@ -1,84 +1,272 @@
 koushik@koushik-ASUS-TUF-Gaming-A15-FA506QM-FA506QM:~/Documents/virtusa/project$ tree
 .
-
+├── api.txt
+├── backlog.txt
+├── docker-compose.yml
+├── Dockerfile
+├── firebase-service-account_backup.json
 ├── HELP.md
 ├── mvnw
 ├── mvnw.cmd
+├── OpenAPI definition
+│   ├── Agents
+│   │   ├── Auth
+│   │   │   ├── folder.yml
+│   │   │   ├── FrontendSignIn.yml
+│   │   │   ├── FrontendSignUP.yml
+│   │   │   └── syncAgentWithFirebase.yml
+│   │   ├── folder.yml
+│   │   ├── ImageUpload
+│   │   │   ├── folder.yml
+│   │   │   ├── getImage.yml
+│   │   │   └── upload.yml
+│   │   ├── Profile
+│   │   │   ├── deleteProfile.yml
+│   │   │   ├── folder.yml
+│   │   │   ├── getProfile.yml
+│   │   │   ├── patchProfile.yml
+│   │   │   └── updateProfile.yml
+│   │   └── property-controller
+│   │       ├── createProperty.yml
+│   │       ├── deactivateProperty.yml
+│   │       ├── deleteProperty.yml
+│   │       ├── folder.yml
+│   │       ├── getMyProperties.yml
+│   │       ├── getProperty.yml
+│   │       ├── searchProperties.yml
+│   │       └── updateProperty.yml
+│   ├── Buyers
+│   │   └── folder.yml
+│   ├── database-health-controller
+│   │   ├── checkDatabase.yml
+│   │   └── folder.yml
+│   ├── environments
+│   │   └── Generated server url.yml
+│   └── opencollection.yml
+├── OpenAPI definition.zip
 ├── pom.xml
+├── prod.sh
+├── prometheus.yml
 ├── src
 │   ├── main
 │   │   ├── java
 │   │   │   └── virtusa
 │   │   │       └── project
 │   │   │           ├── config
+│   │   │           │   ├── FirebaseAuthenticationFilter.java
+│   │   │           │   ├── FirebaseConfig.java
+│   │   │           │   ├── S3Config.java
 │   │   │           │   └── SecurityConfig.java
 │   │   │           ├── core
 │   │   │           ├── domains
 │   │   │           │   ├── admins
 │   │   │           │   ├── agent
+│   │   │           │   │   ├── controller
+│   │   │           │   │   │   ├── AgentAuthController.java
+│   │   │           │   │   │   └── AgentProfileController.java
+│   │   │           │   │   ├── dto
+│   │   │           │   │   │   └── AgentProfileUpdateRequest.java
 │   │   │           │   │   ├── model
-│   │   │           │   │   │   └── Agent.java
-│   │   │           │   │   └── repository
-│   │   │           │   │       └── AgentRepository.java
+│   │   │           │   │   │   ├── Agent.java
+│   │   │           │   │   │   ├── AgentStatus.java
+│   │   │           │   │   │   └── model.txt
+│   │   │           │   │   ├── repository
+│   │   │           │   │   │   └── AgentRepository.java
+│   │   │           │   │   └── service
+│   │   │           │   │       ├── AgentAuthService.java
+│   │   │           │   │       └── AgentProfileService.java
 │   │   │           │   ├── health
 │   │   │           │   │   └── controller
 │   │   │           │   │       └── DatabaseHealthController.java
+│   │   │           │   ├── images
+│   │   │           │   │   ├── controller
+│   │   │           │   │   │   └── ImageController.java
+│   │   │           │   │   ├── dto
+│   │   │           │   │   │   ├── ImageDTO.java
+│   │   │           │   │   │   └── ImageUploadResponse.java
+│   │   │           │   │   ├── model
+│   │   │           │   │   │   └── Image.java
+│   │   │           │   │   ├── repository
+│   │   │           │   │   │   └── ImageRepository.java
+│   │   │           │   │   └── service
+│   │   │           │   │       ├── ImageServiceImpl.java
+│   │   │           │   │       └── ImageService.java
+│   │   │           │   ├── listings
+│   │   │           │   │   ├── controller
+│   │   │           │   │   │   └── PropertyController.java
+│   │   │           │   │   ├── dto
+│   │   │           │   │   │   ├── CreatePropertyRequest.java
+│   │   │           │   │   │   ├── PropertyResponse.java
+│   │   │           │   │   │   ├── PropertySearchRequest.java
+│   │   │           │   │   │   ├── PropertySummaryResponse.java
+│   │   │           │   │   │   └── UpdatePropertyRequest.java
+│   │   │           │   │   ├── mapper
+│   │   │           │   │   │   └── PropertyMapper.java
+│   │   │           │   │   ├── model
+│   │   │           │   │   │   ├── ListingType.java
+│   │   │           │   │   │   ├── Property.java
+│   │   │           │   │   │   ├── PropertyStatus.java
+│   │   │           │   │   │   └── PropertyType.java
+│   │   │           │   │   ├── repository
+│   │   │           │   │   │   └── PropertyRepository.java
+│   │   │           │   │   └── service
+│   │   │           │   │       ├── PropertyServiceImpl.java
+│   │   │           │   │       └── PropertyService.java
 │   │   │           │   ├── notifications
 │   │   │           │   ├── personalization
+│   │   │           │   ├── reservation
+│   │   │           │   │   └── models
+│   │   │           │   │       ├── Reservation.java
+│   │   │           │   │       ├── ReservationStatus.java
+│   │   │           │   │       └── ReservationType.java
+│   │   │           │   ├── reviews
+│   │   │           │   │   └── models
+│   │   │           │   │       ├── AgentReviews.java
+│   │   │           │   │       └── PropertyReviews.java
 │   │   │           │   ├── search
 │   │   │           │   └── users
+│   │   │           ├── exceptions
+│   │   │           │   ├── AccountDeletedException.java
+│   │   │           │   ├── ApiErrorResponse.java
+│   │   │           │   ├── BadRequestException.java
+│   │   │           │   ├── GlobalExceptionHandler.java
+│   │   │           │   ├── ResourceNotFoundException.java
+│   │   │           │   └── UnauthorizedException.java
 │   │   │           └── ProjectApplication.java
 │   │   └── resources
 │   │       ├── application.properties
-│   │       ├── db
 │   │       ├── elasticsearch
-│   │       ├── static
-│   │       └── templates
+│   │       ├── firebase-service-account.json
+│   │       ├── META-INF
+│   │       │   └── additional-spring-configuration-metadata.json
+│   │       └── VirtusaKey.pem
 │   └── test
 │       └── java
 │           └── virtusa
 │               └── project
 │                   └── ProjectApplicationTests.java
 ├── structure.txt
-└── target
-    ├── classes
-    │   ├── application.properties
-    │   └── virtusa
-    │       └── project
-    │           ├── config
-    │           │   └── SecurityConfig.class
-    │           ├── core
-    │           ├── domains
-    │           │   ├── admins
-    │           │   ├── agent
-    │           │   │   ├── model
-    │           │   │   │   └── Agent.class
-    │           │   │   └── repository
-    │           │   │       └── AgentRepository.class
-    │           │   ├── health
-    │           │   │   └── controller
-    │           │   │       └── DatabaseHealthController.class
-    │           │   ├── notifications
-    │           │   ├── personalization
-    │           │   ├── search
-    │           │   └── users
-    │           └── ProjectApplication.class
-    ├── generated-sources
-    │   └── annotations
-    ├── generated-test-sources
-    │   └── test-annotations
-    ├── maven-status
-    │   └── maven-compiler-plugin
-    │       └── compile
-    │           └── default-compile
-    │               ├── createdFiles.lst
-    │               └── inputFiles.lst
-    └── test-classes
-        └── virtusa
-            └── project
-                └── ProjectApplicationTests.class
+├── target
+│   ├── classes
+│   │   ├── application.properties
+│   │   ├── firebase-service-account.json
+│   │   ├── META-INF
+│   │   │   └── additional-spring-configuration-metadata.json
+│   │   ├── virtusa
+│   │   │   └── project
+│   │   │       ├── config
+│   │   │       │   ├── FirebaseAuthenticationFilter.class
+│   │   │       │   ├── FirebaseConfig.class
+│   │   │       │   ├── S3Config.class
+│   │   │       │   └── SecurityConfig.class
+│   │   │       ├── core
+│   │   │       ├── domains
+│   │   │       │   ├── admins
+│   │   │       │   ├── agent
+│   │   │       │   │   ├── controller
+│   │   │       │   │   │   ├── AgentAuthController.class
+│   │   │       │   │   │   └── AgentProfileController.class
+│   │   │       │   │   ├── dto
+│   │   │       │   │   │   └── AgentProfileUpdateRequest.class
+│   │   │       │   │   ├── model
+│   │   │       │   │   │   ├── Agent$AgentBuilder.class
+│   │   │       │   │   │   ├── Agent.class
+│   │   │       │   │   │   ├── AgentStatus.class
+│   │   │       │   │   │   └── model.txt
+│   │   │       │   │   ├── repository
+│   │   │       │   │   │   └── AgentRepository.class
+│   │   │       │   │   └── service
+│   │   │       │   │       ├── AgentAuthService.class
+│   │   │       │   │       └── AgentProfileService.class
+│   │   │       │   ├── health
+│   │   │       │   │   └── controller
+│   │   │       │   │       └── DatabaseHealthController.class
+│   │   │       │   ├── images
+│   │   │       │   │   ├── controller
+│   │   │       │   │   │   └── ImageController.class
+│   │   │       │   │   ├── dto
+│   │   │       │   │   │   ├── ImageDTO.class
+│   │   │       │   │   │   ├── ImageUploadResponse$ImageUploadResponseBuilder.class
+│   │   │       │   │   │   └── ImageUploadResponse.class
+│   │   │       │   │   ├── model
+│   │   │       │   │   │   ├── Image$ImageBuilder.class
+│   │   │       │   │   │   └── Image.class
+│   │   │       │   │   ├── repository
+│   │   │       │   │   │   └── ImageRepository.class
+│   │   │       │   │   └── service
+│   │   │       │   │       ├── ImageService.class
+│   │   │       │   │       └── ImageServiceImpl.class
+│   │   │       │   ├── listings
+│   │   │       │   │   ├── controller
+│   │   │       │   │   │   └── PropertyController.class
+│   │   │       │   │   ├── dto
+│   │   │       │   │   │   ├── CreatePropertyRequest$CreatePropertyRequestBuilder.class
+│   │   │       │   │   │   ├── CreatePropertyRequest.class
+│   │   │       │   │   │   ├── PropertyResponse$PropertyResponseBuilder.class
+│   │   │       │   │   │   ├── PropertyResponse.class
+│   │   │       │   │   │   ├── PropertySearchRequest$PropertySearchRequestBuilder.class
+│   │   │       │   │   │   ├── PropertySearchRequest.class
+│   │   │       │   │   │   ├── PropertySummaryResponse$PropertySummaryResponseBuilder.class
+│   │   │       │   │   │   ├── PropertySummaryResponse.class
+│   │   │       │   │   │   ├── UpdatePropertyRequest$UpdatePropertyRequestBuilder.class
+│   │   │       │   │   │   └── UpdatePropertyRequest.class
+│   │   │       │   │   ├── mapper
+│   │   │       │   │   │   └── PropertyMapper.class
+│   │   │       │   │   ├── model
+│   │   │       │   │   │   ├── ListingType.class
+│   │   │       │   │   │   ├── Property$PropertyBuilder.class
+│   │   │       │   │   │   ├── Property.class
+│   │   │       │   │   │   ├── PropertyStatus.class
+│   │   │       │   │   │   └── PropertyType.class
+│   │   │       │   │   ├── repository
+│   │   │       │   │   │   └── PropertyRepository.class
+│   │   │       │   │   └── service
+│   │   │       │   │       ├── PropertyService.class
+│   │   │       │   │       └── PropertyServiceImpl.class
+│   │   │       │   ├── notifications
+│   │   │       │   ├── personalization
+│   │   │       │   ├── reservation
+│   │   │       │   │   └── models
+│   │   │       │   │       ├── Reservation$ReservationBuilder.class
+│   │   │       │   │       ├── Reservation.class
+│   │   │       │   │       ├── ReservationStatus.class
+│   │   │       │   │       └── ReservationType.class
+│   │   │       │   ├── reviews
+│   │   │       │   │   └── models
+│   │   │       │   │       ├── AgentReviews$AgentReviewsBuilder.class
+│   │   │       │   │       ├── AgentReviews.class
+│   │   │       │   │       ├── PropertyReviews$PropertyReviewsBuilder.class
+│   │   │       │   │       └── PropertyReviews.class
+│   │   │       │   ├── search
+│   │   │       │   └── users
+│   │   │       ├── exceptions
+│   │   │       │   ├── AccountDeletedException.class
+│   │   │       │   ├── ApiErrorResponse$ApiErrorResponseBuilder.class
+│   │   │       │   ├── ApiErrorResponse.class
+│   │   │       │   ├── BadRequestException.class
+│   │   │       │   ├── GlobalExceptionHandler.class
+│   │   │       │   ├── ResourceNotFoundException.class
+│   │   │       │   └── UnauthorizedException.class
+│   │   │       └── ProjectApplication.class
+│   │   └── VirtusaKey.pem
+│   ├── generated-sources
+│   │   └── annotations
+│   ├── generated-test-sources
+│   │   └── test-annotations
+│   ├── maven-status
+│   │   └── maven-compiler-plugin
+│   │       ├── compile
+│   │       │   └── default-compile
+│   │       │       ├── createdFiles.lst
+│   │       │       └── inputFiles.lst
+│   │       └── testCompile
+│   │           └── default-testCompile
+│   │               ├── createdFiles.lst
+│   │               └── inputFiles.lst
+│   └── test-classes
+│       └── virtusa
+│           └── project
+│               └── ProjectApplicationTests.class
+└── test.txt
 
-56 directories, 21 files,
-
-
-A domain based spring boot 3, connected with neon postgress.
+108 directories, 161 files

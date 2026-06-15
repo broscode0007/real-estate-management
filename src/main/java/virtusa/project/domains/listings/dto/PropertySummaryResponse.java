@@ -7,6 +7,7 @@
 package virtusa.project.domains.listings.dto;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,7 @@ import virtusa.project.domains.listings.model.PropertyType;
 @Builder
 public class PropertySummaryResponse {
 
-    private Long id;
+    private UUID id;
 
     private String propertyCode;
 
