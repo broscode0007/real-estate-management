@@ -4,3 +4,9 @@ Boost Listing
 Archive Listing
 Reservation Analytics
 Dashboard Metrics
+⏳ Reviews
+⏳ Notifications
+⏳ Chat
+⏳ Elasticsearch
+⏳ AI Pricing
+⏳ Analytics

@@ -1,7 +1,7 @@
 info:
   name: searchProperties
   type: http
-  seq: 7
+  seq: 8
   tags:
     - property-controller
 

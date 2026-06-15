@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import virtusa.project.domains.listings.model.ListingType;
-import virtusa.project.domains.listings.model.PropertyStatus;
 import virtusa.project.domains.listings.model.PropertyType;
 
 @Getter
@@ -29,7 +28,7 @@ public class UpdatePropertyRequest {
 
     private ListingType listingType;
 
-    private PropertyStatus status;
+    // private PropertyStatus status;
 
     private BigDecimal startPrice;
 

@@ -62,7 +62,8 @@ public class Property {
     private ListingType listingType;
 
     @Enumerated(EnumType.STRING)
-    private PropertyStatus status;
+    @Builder.Default
+    private PropertyStatus status = PropertyStatus.DRAFT;
 
     private String projectName;
 

@@ -56,7 +56,7 @@ public final class PropertyMapper {
         property.setDescription(request.getDescription());
         property.setPropertyType(request.getPropertyType());
         property.setListingType(request.getListingType());
-        property.setStatus(request.getStatus());
+        // property.setStatus(request.getStatus());
 
         property.setStartPrice(request.getStartPrice());
         property.setExpectedPrice(request.getExpectedPrice());

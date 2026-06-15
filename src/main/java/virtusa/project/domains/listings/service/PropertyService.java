@@ -31,11 +31,14 @@ public interface PropertyService {
             String agentFirebaseUid,
             int page,
             int size);
-void deactivateProperty(
-        UUID propertyId,
-        String agentFirebaseUid);
+        void deactivateProperty(
+                UUID propertyId,
+                String agentFirebaseUid);
 
-    void deleteProperty(
-        UUID propertyId,
-        String agentFirebaseUid);
+        void deleteProperty(
+                UUID propertyId,
+                String agentFirebaseUid);
+        void submitProperty(
+                UUID propertyId,
+                String agentFirebaseUid);
 }

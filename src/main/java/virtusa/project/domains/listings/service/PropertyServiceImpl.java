@@ -203,6 +203,39 @@ public class PropertyServiceImpl implements PropertyService {
 
         propertyRepository.save(property);
         }
+        @Override
+        public void submitProperty(
+                UUID propertyId,
+                String agentFirebaseUid) {
+
+        Property property = propertyRepository
+                .findById(propertyId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Property not found"));
+
+        if (!property.getAgent()
+                .getFirebaseUid()
+                .equals(agentFirebaseUid)) {
+
+                throw new UnauthorizedException(
+                        "You do not own this property");
+        }
+
+        if (property.getStatus() != PropertyStatus.DRAFT) {
+
+                throw new BadRequestException(
+                        "Only draft properties can be submitted");
+        }
+
+        property.setStatus(
+                PropertyStatus.SUBMITTED);
+
+        property.setUpdatedAt(
+                LocalDateTime.now());
+
+        propertyRepository.save(property);
+        }
 
 private String generatePropertyCode() {
 

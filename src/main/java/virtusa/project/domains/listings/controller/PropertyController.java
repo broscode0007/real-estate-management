@@ -141,7 +141,24 @@ public class PropertyController {
         return ResponseEntity.noContent()
                 .build();
         }
+        @PatchMapping("/{propertyId}/submit")
+        public ResponseEntity<String> submitProperty(
+                @PathVariable UUID propertyId,
+                @RequestHeader("Authorization")
+                String authorizationHeader)
+                throws Exception {
 
+        String firebaseUid =
+                getFirebaseUid(
+                        authorizationHeader);
+
+        propertyService.submitProperty(
+                propertyId,
+                firebaseUid);
+
+        return ResponseEntity.ok(
+                "Property submitted successfully");
+        }
     private String getFirebaseUid(
             String authorizationHeader)
             throws Exception {
