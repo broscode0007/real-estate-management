@@ -10,3 +10,40 @@ Dashboard Metrics
 ⏳ Elasticsearch
 ⏳ AI Pricing
 ⏳ Analytics
+
+
+Business Rules
+Slow
+₹99
+
+Unlimited reservations
+
+Creates chat access
+
+Agent notified
+
+No lock
+Normal
+₹200
+
+Counts toward property maxNormalReservations
+
+Creates chat
+
+Email sent
+
+Agent receives contact details
+Immediate
+₹1000
+
+Locks property
+
+No further reservations allowed
+
+Agent receives:
+    Chat
+    Email
+    Notification
+
+Buyer receives:
+    Agent contact

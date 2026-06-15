@@ -28,5 +28,20 @@
     "name": "aws.s3.bucket-name",
     "type": "java.lang.String",
     "description": "A description for 'aws.s3.bucket-name'"
+  },
+  {
+    "name": "reservation.slow.price",
+    "type": "java.lang.String",
+    "description": "A description for 'reservation.slow.price'"
+  },
+  {
+    "name": "reservation.normal.price",
+    "type": "java.lang.String",
+    "description": "A description for 'reservation.normal.price'"
+  },
+  {
+    "name": "reservation.immediate.price",
+    "type": "java.lang.String",
+    "description": "A description for 'reservation.immediate.price'"
   }
 ]}
