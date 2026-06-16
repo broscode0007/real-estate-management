@@ -12,11 +12,23 @@ http:
     type: json
     data: |-
       {
-        "propertyId": "",
-        "reservationType": "IMMEDIATE",
-        "notes": ""
+        "propertyId": "{{buyer_property_id}}",
+        "reservationType": "NORMAL",
+        "notes": "I need this"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: "{{buyer_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        bru.setGlobalEnvVar("buyer_reservation_id", body.id);
+
+        console.log("Saved token");
 
 settings:
   encodeUrl: true

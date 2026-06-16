@@ -61,12 +61,15 @@ runtime:
       code: |-
         const body = res.getBody();
 
-        bru.setGlobalEnvVar(
-            "buyer_property_id",
-            body.content[0].id
-        );
-
-        console.log("Saved property ID");
+        if (body.content && body.content.length > 0) {
+            bru.setGlobalEnvVar(
+                "buyer_property_id",
+                body.content[0].id
+            );
+            console.log("Saved property ID");
+        } else {
+            console.log("No properties found");
+        }
 
 settings:
   encodeUrl: true

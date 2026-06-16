@@ -7,12 +7,10 @@ info:
 
 http:
   method: DELETE
-  url: "{{baseUrl}}/api/v1/buyers/reservations/:reservationId"
-  params:
-    - name: reservationId
-      value: ""
-      type: path
-  auth: inherit
+  url: "{{baseUrl}}/api/v1/buyers/reservations/d4931b30-6f06-4f44-bb27-27ffce8f1fd2"
+  auth:
+    type: bearer
+    token: "{{buyer_token}}"
 
 settings:
   encodeUrl: true
