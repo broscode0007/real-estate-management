@@ -1,18 +1,16 @@
 info:
-  name: removeDeviceToken
+  name: removeFromWishlist
   type: http
-  seq: 3
+  seq: 4
   tags:
-    - device-token-controller
+    - wishlist-controller
 
 http:
   method: DELETE
-  url: "{{baseUrl}}/api/v1/device-tokens/:fcmToken"
-  params:
-    - name: fcmToken
-      value: ""
-      type: path
-  auth: inherit
+  url: "{{baseUrl}}/api/v1/buyers/wishlist/{{buyer_property_id}}"
+  auth:
+    type: bearer
+    token: "{{buyer_token}}"
 
 settings:
   encodeUrl: true
@@ -24,10 +22,10 @@ examples:
   - name: 200 Response
     description: OK
     request:
-      url: "{{baseUrl}}/api/v1/device-tokens/:fcmToken"
+      url: "{{baseUrl}}/api/v1/buyers/wishlist/:propertyId"
       method: DELETE
       params:
-        - name: fcmToken
+        - name: propertyId
           value: ""
           type: path
     response:

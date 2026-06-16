@@ -1,5 +1,5 @@
 info:
-  name: getWishlist
+  name: isWishlisted
   type: http
   seq: 3
   tags:
@@ -7,8 +7,10 @@ info:
 
 http:
   method: GET
-  url: "{{baseUrl}}/api/v1/buyers/wishlist"
-  auth: inherit
+  url: "{{baseUrl}}/api/v1/buyers/wishlist/{{buyer_property_id}}/exists"
+  auth:
+    type: bearer
+    token: "{{buyer_token}}"
 
 settings:
   encodeUrl: true
@@ -20,8 +22,12 @@ examples:
   - name: 200 Response
     description: OK
     request:
-      url: "{{baseUrl}}/api/v1/buyers/wishlist"
+      url: "{{baseUrl}}/api/v1/buyers/wishlist/:propertyId/exists"
       method: GET
+      params:
+        - name: propertyId
+          value: ""
+          type: path
     response:
       status: 200
       statusText: OK
@@ -30,11 +36,4 @@ examples:
           value: "*/*"
       body:
         type: text
-        data: |-
-          [
-            {
-              "id": "",
-              "propertyId": "",
-              "createdAt": ""
-            }
-          ]
+        data: "false"

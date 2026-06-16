@@ -1,18 +1,16 @@
 info:
   name: addToWishlist
   type: http
-  seq: 1
+  seq: 2
   tags:
     - wishlist-controller
 
 http:
   method: POST
-  url: "{{baseUrl}}/api/v1/buyers/wishlist/:propertyId"
-  params:
-    - name: propertyId
-      value: ""
-      type: path
-  auth: inherit
+  url: "{{baseUrl}}/api/v1/buyers/wishlist/{{buyer_property_id}}"
+  auth:
+    type: bearer
+    token: "{{buyer_token}}"
 
 settings:
   encodeUrl: true

@@ -12,11 +12,26 @@ http:
     type: json
     data: |-
       {
-        "fcmToken": "",
-        "platform": "",
-        "deviceName": ""
+        "fcmToken": "fcm_test_token_android_123456789",
+        "platform": "ANDROID",
+        "deviceName": "Samsung Galaxy S23"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: "{{buyer_token}}"
+
+runtime:
+  scripts:
+    - type: before-request
+      code: |-
+        const body = req.getBody();
+
+        bru.setGlobalEnvVar(
+            "buyer_fcm_token",
+            body.fcmToken
+        );
+
+        console.log("Saved FCM token:", body.fcmToken);
 
 settings:
   encodeUrl: true
