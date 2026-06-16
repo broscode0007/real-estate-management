@@ -1,4 +1,4 @@
-name: Generated server url
+name: production
 variables:
   - name: baseUrl
     value: https://rems.clqit.in
