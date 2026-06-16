@@ -1,8 +1,3 @@
-// GET /properties
-// GET /search
-// GET /agent/listings
-
-
 package virtusa.project.domains.listings.dto;
 
 import java.math.BigDecimal;
@@ -14,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import virtusa.project.domains.listings.model.ListingType;
 import virtusa.project.domains.listings.model.PropertyType;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,49 +17,83 @@ import virtusa.project.domains.listings.model.PropertyType;
 @Builder
 public class PropertySearchRequest {
 
-    
-    // Text Search
+
+    // ==================================================
+    // Full text search
+    // ==================================================
+
     private String query;
 
-    // Location
+
+    // ==================================================
+    // Location filters
+    // ==================================================
+
     private String city;
 
     private String state;
 
     private String locality;
 
-    // Property
+
+    // ==================================================
+    // Property filters
+    // ==================================================
+
     private PropertyType propertyType;
 
     private ListingType listingType;
 
-    // Price
+
+    // ==================================================
+    // Price filters
+    // ==================================================
+
     private BigDecimal minPrice;
 
     private BigDecimal maxPrice;
 
-    // Area
+
+    // ==================================================
+    // Area filters
+    // ==================================================
+
     private Double minAreaSqFt;
 
     private Double maxAreaSqFt;
 
-    // Rooms
+
+    // ==================================================
+    // Room filters
+    // ==================================================
+
     private Integer minBedrooms;
 
     private Integer minBathrooms;
 
-    // Rating
+
+    // ==================================================
+    // Rating / feature filters
+    // ==================================================
+
     private Double minRating;
 
-    // Reservation
     private Boolean reservationsEnabled;
 
+
+    // ==================================================
     // Pagination
+    // ==================================================
+
     private Integer page;
 
     private Integer size;
 
+
+    // ==================================================
     // Sorting
+    // ==================================================
+
     private String sortBy;
 
     private String sortDirection;

@@ -157,11 +157,11 @@ public class PropertyResponse {
     private Boolean petsAllowed;
     private Boolean smokingAllowed;
     private Integer leaseDurationMonths;
-    private Boolean reservationsEnabled;
-    private Boolean immediateReservationEnabled;
-    private Boolean normalReservationEnabled;
-    private Boolean slowReservationEnabled;
-    private Integer maxNormalReservations;
+    private boolean reservationsEnabled;
+    private boolean immediateReservationEnabled;
+    private boolean normalReservationEnabled;
+    private boolean slowReservationEnabled;
+    private int maxNormalReservations;
     private Long enquiryCount;
     private LocalDateTime listedAt;
     private LocalDateTime updatedAt;

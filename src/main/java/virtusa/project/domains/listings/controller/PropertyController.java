@@ -77,15 +77,16 @@ public class PropertyController {
                 propertyService.getProperty(propertyId)
         );
     }
-
-    @PostMapping("/search")
-    public ResponseEntity<Page<PropertySummaryResponse>> searchProperties(
-            @RequestBody PropertySearchRequest request) {
+    
+        @PostMapping("/search")
+        public ResponseEntity<Page<PropertySummaryResponse>>
+        searchProperties(
+                @RequestBody PropertySearchRequest request) {
 
         return ResponseEntity.ok(
                 propertyService.searchProperties(request)
         );
-    }
+        }
 
     @GetMapping("/mine")
     public ResponseEntity<Page<PropertySummaryResponse>> getMyProperties(

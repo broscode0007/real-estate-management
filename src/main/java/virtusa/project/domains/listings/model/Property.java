@@ -63,7 +63,7 @@ public class Property {
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private PropertyStatus status = PropertyStatus.DRAFT;
+    private PropertyStatus status = PropertyStatus.ACTIVE;
 
     private String projectName;
 
@@ -72,7 +72,7 @@ public class Property {
     private String ownerName;
 
     @Builder.Default
-    private Boolean verified = false;
+    private Boolean verified = true;
 
     @Builder.Default
     private Boolean featured = false;
@@ -352,27 +352,32 @@ public class Property {
 
     private LocalDateTime createdAt;
     
+    
     @Builder.Default
     @Column(nullable = false)
-    private Boolean reservationsEnabled = false;
+    private boolean reservationsEnabled = false;
 
     @Builder.Default
     @Column(nullable = false)
-    private Boolean immediateReservationEnabled = false;
+    private boolean immediateReservationEnabled = false;
 
     @Builder.Default
     @Column(nullable = false)
-    private Boolean normalReservationEnabled = false;
+    private boolean normalReservationEnabled = false;
 
     @Builder.Default
     @Column(nullable = false)
-    private Boolean slowReservationEnabled = false;
+    private boolean slowReservationEnabled = false;
 
     @Builder.Default
-    private Integer maxNormalReservations = 0;
+    @Column(nullable = false)
+    private int maxNormalReservations = 0;
 
     @Column(nullable = false)
     @Builder.Default
     private Boolean deleted = false;
+
+
+    
 }
 

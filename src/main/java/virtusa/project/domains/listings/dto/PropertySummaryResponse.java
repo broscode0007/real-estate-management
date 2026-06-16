@@ -1,60 +1,73 @@
-// GET /properties
-// GET /search
-// GET /agent/listings
-// GET /favorites
-
-
 package virtusa.project.domains.listings.dto;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import virtusa.project.domains.listings.model.ListingType;
 import virtusa.project.domains.listings.model.PropertyType;
 
+
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class PropertySummaryResponse {
 
+    // Identity
     private UUID id;
 
     private String propertyCode;
 
+
+    // Basic information
     private String title;
 
     private PropertyType propertyType;
 
     private ListingType listingType;
 
-    private BigDecimal expectedPrice;
 
+    // Location
     private String locality;
 
     private String city;
 
+    private String state;
+
+
+    // Pricing
+    private BigDecimal expectedPrice;
+
+
+    // Area
+    private Double builtUpAreaSqFt;
+
+
+    // Rooms
     private Integer bedrooms;
 
     private Integer bathrooms;
 
     private Integer parkingSpaces;
 
-    private Double builtUpAreaSqFt;
 
+    // Search ranking
     private Double averageRating;
 
-    private Long totalReviews;
 
+    // Media
+    private String thumbnailUrl;
+
+
+    // Display flags
     private Boolean verified;
 
     private Boolean featured;
 
-    private String thumbnailUrl;
+
+    // Social proof
+    private Long totalReviews;
 }

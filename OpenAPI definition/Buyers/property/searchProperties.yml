@@ -11,19 +11,62 @@ http:
   body:
     type: json
     data: |-
-      {
-        "city": "Chennai",
-        "propertyType": "VILLA",
-        "listingType": "SALE",
-        "minPrice": 5000000,
-        "maxPrice": 15000000,
-        "minBedrooms": 3,
-        "page": 0,
-        "size": 20
-      }
+      {}
+
+
+      // {
+      //   "propertyType": "VILLA",
+      //   "listingType": "SALE"
+      // }
+      // {
+      // //   "city": "Chennai",
+      //   "propertyType": "VILLA",
+      //   "listingType": "SALE",
+      // //   "minPrice": 5000000,
+      // //   "maxPrice": 15000000,
+      // //   "minBedrooms": 3,
+      // //   "page": 0,
+      // //   "size": 20
+      // }
+      // {
+      //   "city": "Chennai"
+      // }
+      // {
+      //   "query": "",
+      //   "city": "",
+      //   "state": "",
+      //   "locality": "",
+      //   "propertyType": "VILLA",
+      //   "listingType": "SALE",
+      //   "minPrice": 0,
+      //   "maxPrice": 0,
+      //   "minAreaSqFt": 0,
+      //   "maxAreaSqFt": 0,
+      //   "minBedrooms": 2,
+      //   "minBathrooms": 0,
+      //   "minRating": 0,
+      //   "reservationsEnabled": false,
+      //   "page": 0,
+      //   "size": 20,
+      //   "sortBy": "",
+      //   "sortDirection": ""
+      // }
   auth:
     type: bearer
     token: "{{agent_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        bru.setGlobalEnvVar(
+            "buyer_property_id",
+            body.content[0].id
+        );
+
+        console.log("Saved property ID");
 
 settings:
   encodeUrl: true

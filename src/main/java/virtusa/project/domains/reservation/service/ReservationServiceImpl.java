@@ -146,50 +146,39 @@ public class ReservationServiceImpl implements ReservationService {
         return mapToResponse(reservation);
     }
 
-    private void validateReservationEligibility(
-            Property property,
-            ReservationType type) {
+        private void validateReservationEligibility(
+                Property property,
+                ReservationType type) {
 
-        if (!Boolean.TRUE.equals(
-                property.getReservationsEnabled())) {
-
-            throw new BadRequestException(
-                    "Reservations are disabled for this property");
+        if (!property.isReservationsEnabled()) {
+                throw new BadRequestException(
+                        "Reservations are disabled for this property");
         }
 
         switch (type) {
 
-            case SLOW -> {
-
-                if (!Boolean.TRUE.equals(
-                        property.getSlowReservationEnabled())) {
-
-                    throw new BadRequestException(
-                            "Slow reservation unavailable");
+                case SLOW -> {
+                if (!property.isSlowReservationEnabled()) {
+                        throw new BadRequestException(
+                                "Slow reservation unavailable");
                 }
-            }
-
-            case NORMAL -> {
-
-                if (!Boolean.TRUE.equals(
-                        property.getNormalReservationEnabled())) {
-
-                    throw new BadRequestException(
-                            "Normal reservation unavailable");
                 }
-            }
 
-            case IMMEDIATE -> {
-
-                if (!Boolean.TRUE.equals(
-                        property.getImmediateReservationEnabled())) {
-
-                    throw new BadRequestException(
-                            "Immediate reservation unavailable");
+                case NORMAL -> {
+                if (!property.isNormalReservationEnabled()) {
+                        throw new BadRequestException(
+                                "Normal reservation unavailable");
                 }
-            }
+                }
+
+                case IMMEDIATE -> {
+                if (!property.isImmediateReservationEnabled()) {
+                        throw new BadRequestException(
+                                "Immediate reservation unavailable");
+                }
+                }
         }
-    }
+        }
 
     private void validateDuplicateReservation(
             String buyerFirebaseUid,

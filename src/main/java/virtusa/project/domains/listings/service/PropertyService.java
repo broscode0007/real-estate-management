@@ -12,33 +12,55 @@ import virtusa.project.domains.listings.dto.UpdatePropertyRequest;
 
 public interface PropertyService {
 
+
+    // ==================================================
+    // PROPERTY CREATION
+    // ==================================================
+
     PropertyResponse createProperty(
             String agentFirebaseUid,
             CreatePropertyRequest request);
+
+
+    // ==================================================
+    // PROPERTY MANAGEMENT
+    // ==================================================
 
     PropertyResponse updateProperty(
             UUID propertyId,
             String agentFirebaseUid,
             UpdatePropertyRequest request);
 
+
     PropertyResponse getProperty(
             UUID propertyId);
 
+
+    void deleteProperty(
+            UUID propertyId,
+            String agentFirebaseUid);
+
+
+    void deactivateProperty(
+            UUID propertyId,
+            String agentFirebaseUid);
+
+
+    void submitProperty(
+            UUID propertyId,
+            String agentFirebaseUid);
+
+
+    // ==================================================
+    // SEARCH & LISTING
+    // ==================================================
+
     Page<PropertySummaryResponse> searchProperties(
             PropertySearchRequest request);
+
 
     Page<PropertySummaryResponse> getAgentProperties(
             String agentFirebaseUid,
             int page,
             int size);
-        void deactivateProperty(
-                UUID propertyId,
-                String agentFirebaseUid);
-
-        void deleteProperty(
-                UUID propertyId,
-                String agentFirebaseUid);
-        void submitProperty(
-                UUID propertyId,
-                String agentFirebaseUid);
 }

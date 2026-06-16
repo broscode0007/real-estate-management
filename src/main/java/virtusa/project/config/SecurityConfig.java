@@ -16,10 +16,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Allow our public health check and synchronization endpoints to bypass direct session locks
                 .requestMatchers(
-                    "/api/v1/health/db", 
-                    "/api/v1/agents/auth/sync",
-                    "/api/v1/agents/profile",
-                    "/api/v1/agents/listings/**",
+                    "/api/v1/**",
                     "/actuator/**",
                     "/v3/api-docs/**",      // Required for documentation data
                     "/swagger-ui/**",       // Required for the UI asset layout

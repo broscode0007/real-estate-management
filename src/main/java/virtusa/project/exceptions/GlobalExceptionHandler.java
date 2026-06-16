@@ -79,18 +79,20 @@ public class GlobalExceptionHandler {
                                 .build());
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiErrorResponse> handleJsonParse(
-            HttpMessageNotReadableException ex) {
+@ExceptionHandler(HttpMessageNotReadableException.class)
+public ResponseEntity<ApiErrorResponse> handleJsonParse(
+        HttpMessageNotReadableException ex) {
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ApiErrorResponse.builder()
-                                .issue("Invalid request body")
-                                .status(HttpStatus.BAD_REQUEST.value())
-                                .timestamp(LocalDateTime.now())
-                                .build());
-    }
+    ex.printStackTrace();
+
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(
+                    ApiErrorResponse.builder()
+                            .issue(ex.getMostSpecificCause().getMessage())
+                            .status(HttpStatus.BAD_REQUEST.value())
+                            .timestamp(LocalDateTime.now())
+                            .build());
+}
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidation(
