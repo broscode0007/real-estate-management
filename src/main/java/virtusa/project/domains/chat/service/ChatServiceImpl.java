@@ -78,15 +78,19 @@ public class ChatServiceImpl implements ChatService {
 
     /**
      * Get chat history.
+     * 
+     * User must be validated as a participant.
      */
     @Override
     public Page<MessageResponse> getMessages(
             UUID conversationId,
+            String userId,
             Pageable pageable
     ) {
 
         return messageService.getMessages(
                 conversationId,
+                userId,
                 pageable
         );
     }

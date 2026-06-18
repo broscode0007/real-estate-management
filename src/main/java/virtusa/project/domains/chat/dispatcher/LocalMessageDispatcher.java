@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import virtusa.project.domains.chat.dto.MessageResponse;
 import virtusa.project.domains.chat.websocket.PresenceService;
-
+import virtusa.project.domains.notifications.service.PushNotificationService;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,8 @@ public class LocalMessageDispatcher
 
     private final SimpMessagingTemplate messagingTemplate;
 
-
+    private final PushNotificationService pushNotificationService;
+                
     /**
      * Deliver a message to the receiver.
      */
@@ -69,10 +70,17 @@ public class LocalMessageDispatcher
              * Next step:
              * Firebase Cloud Messaging.
              */
-            log.info(
-                    "User {} is offline. FCM notification will be sent.",
-                    receiverId
-            );
-        }
+            pushNotificationService.sendToUser(
+                        receiverId,
+                        "New Message",
+                        message.getContent()
+                );
+
+
+                log.info(
+                        "User {} is offline. FCM notification sent.",
+                        receiverId
+                );
+                        }
     }
 }

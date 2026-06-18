@@ -34,6 +34,38 @@ import virtusa.project.domains.agent.model.Agent;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+
+// public enum ListingType {
+//     SALE,
+//     RENT,
+//     LEASE
+// }
+
+// public enum PropertyStatus {
+
+//     DRAFT,
+//     SUBMITTED,
+//     ACTIVE,
+//     RESERVED,
+//     SOLD,
+//     RENTED,
+//     INACTIVE,
+//     ARCHIVED
+// }
+
+// public enum PropertyType {
+//     APARTMENT,
+//     VILLA,
+//     PLOT,
+//     INDEPENDENT_HOUSE,
+//     COMMERCIAL,
+//     OFFICE,
+//     SHOP,
+//     WAREHOUSE
+// }
+
+
 public class Property {
 
     // ==================================================

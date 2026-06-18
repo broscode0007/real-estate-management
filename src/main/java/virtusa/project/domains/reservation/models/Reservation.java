@@ -17,6 +17,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// public enum ReservationStatus {
+//     PENDING_PAYMENT,
+//     ACTIVE,
+//     EXPIRED,
+//     CANCELLED,
+//     COMPLETED
+// }
+
+// public enum ReservationType {
+//     IMMEDIATE,
+//     NORMAL,
+//     SLOW
+// }
+
 @Entity
 @Table(name = "reservations")
 @Getter

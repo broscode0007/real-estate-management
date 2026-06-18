@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+
 import virtusa.project.domains.notifications.dto.DeviceTokenResponse;
 import virtusa.project.domains.notifications.dto.RegisterDeviceTokenRequest;
 import virtusa.project.domains.notifications.model.DeviceToken;
@@ -14,116 +15,183 @@ import virtusa.project.domains.notifications.repository.DeviceTokenRepository;
 import virtusa.project.exceptions.ResourceNotFoundException;
 import virtusa.project.exceptions.UnauthorizedException;
 
+
 @Service
 @RequiredArgsConstructor
 public class DeviceTokenServiceImpl implements DeviceTokenService {
 
+
     private final DeviceTokenRepository deviceTokenRepository;
+
 
     @Override
     public DeviceTokenResponse registerDeviceToken(
             Authentication authentication,
-            RegisterDeviceTokenRequest request) {
+            RegisterDeviceTokenRequest request
+    ) {
 
         String firebaseUid = getFirebaseUid(authentication);
+
 
         DeviceToken deviceToken =
                 deviceTokenRepository
                         .findByFcmToken(
-                                request.getFcmToken())
-                        .orElse(DeviceToken.builder()
-                                .fcmToken(
-                                        request.getFcmToken())
-                                .build());
+                                request.getFcmToken()
+                        )
+                        .orElse(
+                                DeviceToken.builder()
+                                        .fcmToken(
+                                                request.getFcmToken()
+                                        )
+                                        .build()
+                        );
+
 
         deviceToken.setFirebaseUid(firebaseUid);
         deviceToken.setPlatform(
-                request.getPlatform());
+                request.getPlatform()
+        );
         deviceToken.setDeviceName(
-                request.getDeviceName());
+                request.getDeviceName()
+        );
         deviceToken.setActive(true);
         deviceToken.setLastSeenAt(
-                LocalDateTime.now());
+                LocalDateTime.now()
+        );
+
 
         deviceToken =
                 deviceTokenRepository.save(
-                        deviceToken);
+                        deviceToken
+                );
+
 
         return mapToResponse(deviceToken);
     }
 
+
     @Override
     public List<DeviceTokenResponse> getMyDevices(
-            Authentication authentication) {
+            Authentication authentication
+    ) {
 
         String firebaseUid =
                 getFirebaseUid(authentication);
 
+
         return deviceTokenRepository
                 .findByFirebaseUidAndActiveTrue(
-                        firebaseUid)
+                        firebaseUid
+                )
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
     }
 
+
     @Override
     public void removeDeviceToken(
             Authentication authentication,
-            String fcmToken) {
+            String fcmToken
+    ) {
 
         String firebaseUid =
                 getFirebaseUid(authentication);
 
+
         DeviceToken deviceToken =
                 deviceTokenRepository
                         .findByFcmToken(fcmToken)
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Device token not found"));
+                        .orElseThrow(
+                                () -> new ResourceNotFoundException(
+                                        "Device token not found"
+                                )
+                        );
+
 
         if (!firebaseUid.equals(
-                deviceToken.getFirebaseUid())) {
+                deviceToken.getFirebaseUid()
+        )) {
 
             throw new UnauthorizedException(
-                    "You do not own this device token");
+                    "You do not own this device token"
+            );
         }
+
 
         deviceToken.setActive(false);
 
-        deviceTokenRepository.save(deviceToken);
+
+        deviceTokenRepository.save(
+                deviceToken
+        );
     }
 
-    private String getFirebaseUid(
-            Authentication authentication) {
 
-        if (authentication == null ||
-                authentication.getName() == null) {
+    /**
+     * Internal method used by Firebase FCM
+     * to retrieve all active device tokens
+     * of a user.
+     */
+    @Override
+    public List<String> getDeviceTokensByUserId(
+            String userId
+    ) {
+
+        return deviceTokenRepository
+                .findByFirebaseUidAndActiveTrue(
+                        userId
+                )
+                .stream()
+                .map(DeviceToken::getFcmToken)
+                .toList();
+    }
+
+
+    private String getFirebaseUid(
+            Authentication authentication
+    ) {
+
+        if (authentication == null
+                || authentication.getName() == null) {
 
             throw new UnauthorizedException(
-                    "Authentication required");
+                    "Authentication required"
+            );
         }
+
 
         return authentication.getName();
     }
 
+
     private DeviceTokenResponse mapToResponse(
-            DeviceToken deviceToken) {
+            DeviceToken deviceToken
+    ) {
 
         return DeviceTokenResponse.builder()
-                .id(deviceToken.getId())
+                .id(
+                        deviceToken.getId()
+                )
                 .firebaseUid(
-                        deviceToken.getFirebaseUid())
+                        deviceToken.getFirebaseUid()
+                )
                 .platform(
-                        deviceToken.getPlatform())
+                        deviceToken.getPlatform()
+                )
                 .deviceName(
-                        deviceToken.getDeviceName())
+                        deviceToken.getDeviceName()
+                )
                 .active(
-                        deviceToken.getActive())
+                        deviceToken.getActive()
+                )
                 .lastSeenAt(
-                        deviceToken.getLastSeenAt())
+                        deviceToken.getLastSeenAt()
+                )
                 .createdAt(
-                        deviceToken.getCreatedAt())
+                        deviceToken.getCreatedAt()
+                )
                 .build();
     }
+
 }

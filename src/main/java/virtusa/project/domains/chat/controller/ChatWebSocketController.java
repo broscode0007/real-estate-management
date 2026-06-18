@@ -1,7 +1,8 @@
 package virtusa.project.domains.chat.controller;
 
 
-import org.springframework.messaging.handler.annotation.Header;
+import java.security.Principal;
+
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
@@ -23,32 +24,33 @@ public class ChatWebSocketController {
      *
      * /app/chat/send
      *
-     * Header:
-     *
-     * userId: firebase_uid
+     * The sender is extracted from the
+     * authenticated WebSocket Principal.
      */
     @MessageMapping("/chat/send")
     public void sendMessage(
-            @Header("userId") String senderId,
+            Principal principal,
             SendMessageRequest request
     ) {
 
 
-    chatService.sendMessage(
-            senderId,
-            request
-    );
+        chatService.sendMessage(
+                principal.getName(),
+                request
+        );
 
 
         /*
-         * Nothing else to do.
+         * ChatService handles:
          *
-         * The ChatService already:
+         * - Validating the sender belongs to the conversation
+         * - Saving the message
+         * - Finding the receiver
+         * - Dispatching the message
          *
-         * - Saves the message
-         * - Finds the receiver
-         * - Calls MessageDispatcher
-         * - Sends WebSocket or FCM
+         * Delivery:
+         * - WebSocket if receiver is online
+         * - Firebase FCM if receiver is offline
          */
     }
 }

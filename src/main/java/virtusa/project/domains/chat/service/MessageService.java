@@ -42,11 +42,15 @@ public interface MessageService {
     /**
      * Load messages of a conversation.
      *
+     * The authenticated user must be a
+     * participant in the conversation.
+     *
      * Uses pagination because chats can
      * contain thousands of messages.
      */
     Page<MessageResponse> getMessages(
             UUID conversationId,
+            String userId,
             Pageable pageable
     );
 
@@ -58,7 +62,7 @@ public interface MessageService {
      * Example:
      *
      * Buyer opens chat:
-     * Agent messages become READ
+     * Agent messages become READ.
      */
     void markConversationAsRead(
             UUID conversationId,

@@ -53,7 +53,7 @@ http:
       // }
   auth:
     type: bearer
-    token: "{{agent_token}}"
+    token: "{{buyer_token}}"
 
 runtime:
   scripts:

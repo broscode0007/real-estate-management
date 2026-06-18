@@ -14,7 +14,7 @@ http:
       - name: file
         type: file
         value:
-          - /home/koushik/Downloads/Beige & White Minimalist Collage Instagram Post(3).png
+          - /home/koushik/Pictures/IMG-20240310-WA0017.jpg
   auth:
     type: bearer
     token: "{{agent_token}}"

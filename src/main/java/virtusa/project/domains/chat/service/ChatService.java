@@ -48,9 +48,13 @@ public interface ChatService {
 
     /**
      * Get messages of a conversation.
+     *
+     * The user must be a participant
+     * in the conversation.
      */
     Page<MessageResponse> getMessages(
             UUID conversationId,
+            String userId,
             Pageable pageable
     );
 

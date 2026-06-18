@@ -263,23 +263,17 @@ public class MessageServiceImpl implements MessageService {
         return response;
     }
 
-        /**
-     * Get chat history with pagination.
-     *
-     * Messages are returned newest first.
-     * The frontend can reverse the list
-     * if it wants oldest -> newest order.
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<MessageResponse> getMessages(
-            UUID conversationId,
-            Pageable pageable
-    ) {
+        @Override
+        @Transactional(readOnly = true)
+        public Page<MessageResponse> getMessages(
+                UUID conversationId,
+                String userId,
+                Pageable pageable
+        ) {
 
         /*
-         * Ensure conversation exists.
-         */
+        * Load conversation.
+        */
         Conversation conversation =
                 conversationService.getConversation(
                         conversationId
@@ -287,8 +281,20 @@ public class MessageServiceImpl implements MessageService {
 
 
         /*
-         * Fetch messages with pagination.
-         */
+        * Security check.
+        *
+        * Only the buyer or agent belonging
+        * to this conversation can view messages.
+        */
+        conversationService.validateParticipant(
+                conversation,
+                userId
+        );
+
+
+        /*
+        * Fetch messages with pagination.
+        */
         return messageRepository
                 .findByConversationOrderByCreatedAtDesc(
                         conversation,
@@ -297,7 +303,7 @@ public class MessageServiceImpl implements MessageService {
                 .map(
                         chatMapper::toMessageResponse
                 );
-    }
+        }
 
         /**
      * Mark messages from the other participant

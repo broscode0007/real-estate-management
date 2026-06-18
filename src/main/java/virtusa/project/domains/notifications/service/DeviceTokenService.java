@@ -11,12 +11,25 @@ public interface DeviceTokenService {
 
     DeviceTokenResponse registerDeviceToken(
             Authentication authentication,
-            RegisterDeviceTokenRequest request);
+            RegisterDeviceTokenRequest request
+    );
+
 
     List<DeviceTokenResponse> getMyDevices(
-            Authentication authentication);
+            Authentication authentication
+    );
+
 
     void removeDeviceToken(
             Authentication authentication,
-            String fcmToken);
+            String fcmToken
+    );
+
+
+    /**
+     * Used internally by FCM services.
+     */
+    List<String> getDeviceTokensByUserId(
+            String userId
+    );
 }

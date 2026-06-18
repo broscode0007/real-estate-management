@@ -1,0 +1,324 @@
+Project Context
+
+I am building a Spring Boot backend for a real estate application.
+
+The application has:
+
+Firebase Authentication
+Buyer and Agent accounts
+Property listings
+Property images (AWS S3)
+Reservations
+Real-time chat using Spring WebSocket + STOMP
+Firebase Cloud Messaging (FCM) for offline chat notifications
+Device token management
+Global exception handling
+
+The project follows a domain-based architecture.
+
+Current Project Tree
+src/main/java/virtusa/project
+│
+├── config
+│   ├── CorsConfig.java
+│   │   Purpose:
+│   │   - Configure frontend CORS access
+│   │
+│   ├── FirebaseAuthenticationFilter.java
+│   │   Purpose:
+│   │   - Extract Authorization Bearer token
+│   │   - Verify Firebase ID token
+│   │   - Put Firebase UID into Spring Security Authentication
+│   │
+│   ├── FirebaseConfig.java
+│   │   Purpose:
+│   │   - Initialize Firebase Admin SDK
+│   │   - Provide FirebaseApp bean
+│   │
+│   ├── S3Config.java
+│   │   Purpose:
+│   │   - Configure AWS S3 client
+│   │
+│   └── SecurityConfig.java
+│       Purpose:
+│       - Register FirebaseAuthenticationFilter
+│       - Configure protected routes
+│
+│
+├── domains
+│
+│   ├── agent
+│   │   Status: COMPLETE
+│   │
+│   │   Features:
+│   │   - Agent authentication
+│   │   - Agent profile management
+│
+│
+│   ├── buyers
+│   │   Status: COMPLETE
+│   │
+│   │   Features:
+│   │   - Buyer authentication
+│   │   - Profile update
+│   │   - Wishlist
+│
+│
+│   ├── listings
+│   │   Status: COMPLETE
+│   │
+│   │   Features:
+│   │   - Create property
+│   │   - Update property
+│   │   - Search with specifications
+│   │   - Property response mapping
+│
+│
+│   ├── images
+│   │   Status: COMPLETE
+│   │
+│   │   Features:
+│   │   - Image upload
+│   │   - AWS S3 storage
+│
+│
+│   ├── reservation
+│   │   Status: COMPLETE
+│   │
+│   │   Features:
+│   │   - Create reservation
+│   │   - Reservation status management
+│
+│
+│   ├── chat
+│   │
+│   │   Status:
+│   │   95% COMPLETE
+│   │
+│   │   Architecture:
+│   │
+│   │   Conversation
+│   │       |
+│   │       |
+│   │   Message
+│   │       |
+│   │       |
+│   │   ChatService
+│   │       |
+│   │       |
+│   │   MessageDispatcher
+│   │       |
+│   │       +----------------+
+│   │       |                |
+│   │   WebSocket         FCM
+│   │
+│   │
+│   │ Completed:
+│   │
+│   │ - Conversation entity
+│   │ - Message entity
+│   │ - Message status
+│   │ - Message type
+│   │ - Sender type
+│   │ - Conversation service
+│   │ - Message service
+│   │ - Chat REST APIs
+│   │ - STOMP WebSocket
+│   │ - Presence tracking
+│   │ - In-memory presence service
+│   │ - Message dispatcher
+│   │ - FCM fallback
+│   │
+│   │ Security migration in progress:
+│   │
+│   │ Before:
+│   │ RequestHeader("userId")
+│   │
+│   │ Problem:
+│   │ Client could impersonate another user.
+│   │
+│   │ After:
+│   │ Authentication.getName()
+│   │
+│   │ Current progress:
+│   │
+│   │ DONE:
+│   │ - ChatController uses Authentication
+│   │   instead of userId header.
+│   │
+│   │ - getConversations()
+│   │   uses authentication.getName()
+│   │
+│   │ - markConversationAsRead()
+│   │   uses authentication.getName()
+│   │
+│   │ - getMessages() is being changed to:
+│   │
+│   │   getMessages(
+│   │      UUID conversationId,
+│   │      String userId,
+│   │      Pageable pageable
+│   │   )
+│   │
+│   │ - ChatService updated
+│   │ - ChatServiceImpl updated
+│   │ - MessageService updated
+│   │
+│   │ Remaining:
+│   │ - Update MessageServiceImpl
+│   │   to validate:
+│   │
+│   │   conversationService
+│   │       .validateParticipant(
+│   │            conversation,
+│   │            userId
+│   │       )
+│   │
+│   │ Then continue with WebSocket security:
+│   │
+│   │ Current:
+│   │ @Header("userId")
+│   │ String senderId
+│   │
+│   │ Must become:
+│   │ Principal principal
+│   │
+│   │ Using:
+│   │ WebSocketAuthInterceptor
+│
+│
+│   ├── notifications
+│   │   Status:
+│   │   90% COMPLETE
+│   │
+│   │ Completed:
+│   │
+│   │ DeviceToken
+│   │ - Stores Firebase UID
+│   │ - Stores multiple FCM tokens
+│   │ - Supports multiple devices
+│   │
+│   │ DeviceTokenService
+│   │ - Register device
+│   │ - Remove device
+│   │ - Get user devices
+│   │ - Internal FCM token lookup
+│   │
+│   │ FirebasePushService
+│   │ - Gets user device tokens
+│   │ - Sends FCM notifications
+│   │
+│   │ PushNotificationService
+│   │ - Abstraction layer
+│
+│
+│   ├── reviews
+│   │ Status:
+│   │ Models only
+│
+│
+│   ├── admins
+│   │ Status:
+│   │ Empty / not implemented
+│
+│
+│   ├── personalization
+│   │ Status:
+│   │ Empty / future feature
+│
+│
+│   └── users
+│       Status:
+│       Empty / future feature
+│
+│
+├── exceptions
+│
+│   Status:
+│   COMPLETE
+│
+│   Contains:
+│   - Global exception handler
+│   - Custom exceptions
+│
+│
+└── ProjectApplication.java
+Security Architecture
+
+Current REST authentication flow:
+
+Mobile App
+     |
+Authorization: Bearer FirebaseToken
+     |
+FirebaseAuthenticationFilter
+     |
+FirebaseAuth.verifyIdToken()
+     |
+Spring SecurityContext
+     |
+Authentication.getName()
+     |
+Firebase UID
+
+This replaces the insecure approach:
+
+RequestHeader("userId")
+Chat Security Goal
+
+REST:
+
+COMPLETE after MessageServiceImpl update
+
+The final check must be:
+
+User requests messages
+        |
+Load conversation
+        |
+Is user buyer or agent?
+        |
+YES -> Return messages
+NO  -> 403 Forbidden
+Remaining Development Order
+
+Continue exactly in this order:
+
+1. Finish MessageServiceImpl getMessages()
+   participant validation.
+
+2. Verify build.
+
+3. Secure WebSocket STOMP:
+   - Create WebSocketAuthInterceptor
+   - Verify Firebase token on CONNECT
+   - Set Principal
+   - Replace @Header("userId")
+     with Principal in ChatWebSocketController.
+
+4. Review SecurityConfig routes.
+
+5. Implement AWS SES email module:
+   notifications/email/
+       EmailService.java
+       AwsSesEmailService.java
+
+6. Add testing.
+
+7. Deployment / Docker.
+Important Rules
+Do not reintroduce userId headers.
+Always use Authentication.getName() for REST.
+Use Principal.getName() for WebSocket.
+DeviceToken should remain separate from Buyer/Agent.
+Keep Firebase logic separated from chat services.
+Keep MessageDispatcher responsible only for choosing WebSocket or FCM.
+
+The project is currently around 90% complete.
+
+The next step in the new chat should be:
+
+Update MessageServiceImpl.getMessages()
+to perform participant authorization.
+
+This should give the next ChatGPT session enough context to continue without losing the architecture or previous decisions.

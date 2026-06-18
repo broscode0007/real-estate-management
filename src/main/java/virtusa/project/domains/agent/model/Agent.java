@@ -24,6 +24,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+// public enum AgentStatus {
+//     PENDING,
+//     ACTIVE,
+//     SUSPENDED,
+//     REJECTED
+// }
 public class Agent {
 
     @Id

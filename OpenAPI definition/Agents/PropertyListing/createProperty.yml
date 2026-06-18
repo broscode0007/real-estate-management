@@ -14,42 +14,118 @@ http:
   body:
     type: json
     data: |-
-      {
-        "title": "Updated Luxury Villa",
-        "description": "Recently renovated villa",
+      // {
+      //   "title": "Updated Luxury Villa",
+      //   "description": "Recently renovated villa",
 
-        "propertyType": "VILLA",
-        "listingType": "SALE",
+      //   "propertyType": "VILLA",
+      //   "listingType": "SALE",
 
-        "expectedPrice": 9200000,
-        "startPrice": 8500000,
-        "maxPrice": 9500000,
+      //   "expectedPrice": 9200000,
+      //   "startPrice": 8500000,
+      //   "maxPrice": 9500000,
 
-        "address": "12 Anna Nagar West",
-        "locality": "Anna Nagar",
-        "city": "Chennai",
-        "postalCode": "600040",
-        "district": "Chennai",
-        "state": "Tamil Nadu",
-        "country": "India",
+      //   "address": "12 Anna Nagar West",
+      //   "locality": "Anna Nagar",
+      //   "city": "Chennai",
+      //   "postalCode": "600040",
+      //   "district": "Chennai",
+      //   "state": "Tamil Nadu",
+      //   "country": "India",
         
 
-        "latitude": 13.0878,
-        "longitude": 80.2101,
+      //   "latitude": 13.0878,
+      //   "longitude": 80.2101,
 
-        "builtUpAreaSqFt": 2600,
-        "carpetAreaSqFt": 2400,
+      //   "builtUpAreaSqFt": 2600,
+      //   "carpetAreaSqFt": 2400,
 
-        "bedrooms": 4,
-        "bathrooms": 4,
-        "balconies": 2,
-        "parkingSpaces": 3,
+      //   "bedrooms": 4,
+      //   "bathrooms": 4,
+      //   "balconies": 2,
+      //   "parkingSpaces": 3,
 
-        "reservationsEnabled": true,
-        "immediateReservationEnabled": true,
-        "normalReservationEnabled": true,
+      //   "reservationsEnabled": true,
+      //   "immediateReservationEnabled": true,
+      //   "normalReservationEnabled": true,
+      //   "slowReservationEnabled": false,
+      //   "maxNormalReservations": 15
+      // }
+
+
+      // {
+      //   "title": "Modern Sea View Apartment",
+      //   "description": "Spacious apartment with panoramic sea views and premium amenities.",
+
+      //   "propertyType": "APARTMENT",
+      //   "listingType": "SALE",
+
+      //   "expectedPrice": 18500000,
+      //   "startPrice": 17000000,
+      //   "maxPrice": 20000000,
+
+      //   "address": "45 Marine Drive",
+      //   "locality": "Nariman Point",
+      //   "city": "Mumbai",
+      //   "postalCode": "400021",
+      //   "district": "Mumbai",
+      //   "state": "Maharashtra",
+      //   "country": "India",
+
+      //   "latitude": 18.9431,
+      //   "longitude": 72.8235,
+
+      //   "builtUpAreaSqFt": 1800,
+      //   "carpetAreaSqFt": 1550,
+
+      //   "bedrooms": 3,
+      //   "bathrooms": 3,
+      //   "balconies": 2,
+      //   "parkingSpaces": 2,
+
+      //   "reservationsEnabled": true,
+      //   "immediateReservationEnabled": false,
+      //   "normalReservationEnabled": true,
+      //   "slowReservationEnabled": true,
+      //   "maxNormalReservations": 10
+      // }
+
+
+      {
+        "title": "Fully Furnished Studio Apartment",
+        "description": "Compact and stylish studio suitable for working professionals.",
+
+        "propertyType": "COMMERCIAL",
+        "listingType": "RENT",
+
+        "expectedPrice": 45000,
+        "startPrice": 40000,
+        "maxPrice": 50000,
+
+        "address": "78 MG Road",
+        "locality": "Indiranagar",
+        "city": "Bengaluru",
+        "postalCode": "560038",
+        "district": "Bengaluru Urban",
+        "state": "Karnataka",
+        "country": "India",
+
+        "latitude": 12.9784,
+        "longitude": 77.6408,
+
+        "builtUpAreaSqFt": 650,
+        "carpetAreaSqFt": 580,
+
+        "bedrooms": 1,
+        "bathrooms": 1,
+        "balconies": 1,
+        "parkingSpaces": 1,
+
+        "reservationsEnabled": false,
+        "immediateReservationEnabled": false,
+        "normalReservationEnabled": false,
         "slowReservationEnabled": false,
-        "maxNormalReservations": 15
+        "maxNormalReservations": 0
       }
   auth:
     type: bearer
