@@ -10,12 +10,12 @@ http:
   url: "{{baseUrl}}/api/v1/agents/properties/{{agent_property_id}}"
   auth:
     type: bearer
-    token: "{{buyer_token}}"
+    token: "{{agent_token}}"
 
 runtime:
   variables:
     - name: agent_property_id
-      value: 36d83d42-98db-4b77-b7d0-fbdf1ec7931a
+      value: 2d2024e2-91c5-44ed-a7aa-a3bd358bf2c3
 
 settings:
   encodeUrl: true

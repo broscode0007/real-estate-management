@@ -15,33 +15,138 @@ http:
     type: json
     data: |-
       {
-        "title": "Luxury Villa Near Anna Nagar Metro",
-        "description": "Recently renovated villa with modern interiors",
+        "title": "Updated Luxury 3 BHK Apartment",
+        "description": "Fully renovated premium apartment with smart home features and new interiors",
 
-        "propertyType": "VILLA",
+        "propertyType": "APARTMENT",
         "listingType": "SALE",
-        "status": "ACTIVE",
 
+        "projectName": "Green Heights Phase 2",
+        "builderName": "XYZ Builders",
+        "ownerName": "Ravi Kumar",
+
+        "startPrice": 8800000,
         "expectedPrice": 9200000,
-        "startPrice": 8500000,
-        "maxPrice": 9500000,
+        "maxPrice": 9700000,
 
-        "address": "12 Anna Nagar West",
+        "maintenanceCharge": 5500,
+        "securityDeposit": 150000,
+        "monthlyRent": 45000,
+        "pricePerSqFt": 9000,
+        "priceNegotiable": false,
+
+        "address": "15 Anna Nagar West",
+        "landmark": "Near Metro Station",
+        "locality": "Anna Nagar",
         "city": "Chennai",
         "district": "Chennai",
         "state": "Tamil Nadu",
         "country": "India",
-        "postalCode": "600040",
+        "postalCode": "600101",
+        "latitude": 13.086,
+        "longitude": 80.211,
+        "googleMapsUrl": "https://maps.google.com/updated-location",
 
-        "bedrooms": 4,
-        "bathrooms": 4,
-        "parkingSpaces": 2,
+        "plotAreaSqFt": 1600,
+        "builtUpAreaSqFt": 1500,
+        "carpetAreaSqFt": 1300,
+        "superBuiltUpAreaSqFt": 1550,
+
+        "bedrooms": 3,
+        "bathrooms": 3,
+        "balconies": 3,
+        "halls": 1,
+        "kitchens": 1,
+        "parkingSpaces": 3,
+        "floorNumber": 6,
+        "totalFloors": 15,
+        "ageOfProperty": 1,
+        "yearBuilt": 2025,
+
+        "facingDirection": "NORTH",
+        "cornerProperty": true,
+        "vastuCompliant": true,
+
+        "furnished": false,
+        "semiFurnished": true,
+        "unfurnished": false,
+
+        "lift": true,
+        "powerBackup": true,
+        "security24x7": true,
+        "cctv": true,
+        "gatedCommunity": true,
+        "swimmingPool": true,
+        "gym": true,
+        "clubhouse": true,
+        "childrensPlayArea": true,
+        "joggingTrack": true,
+        "indoorGames": true,
+        "outdoorSports": true,
+        "park": true,
+        "visitorParking": true,
+        "rainWaterHarvesting": true,
+        "fireSafety": true,
+        "intercom": true,
+        "wifiReady": true,
+
+        "conferenceRoom": false,
+        "cafeteria": false,
+        "receptionArea": false,
+        "centralAirConditioning": true,
+
+        "waterSupply": true,
+        "sewageConnection": true,
+        "electricityConnection": true,
+        "internetAvailable": true,
+        "gasPipeline": true,
+
+        "imageUrls": [
+          "https://example.com/images/property-updated-1.jpg",
+          "https://example.com/images/property-updated-2.jpg",
+          "https://example.com/images/property-updated-3.jpg"
+        ],
+
+        "videoUrls": [
+          "https://example.com/videos/property-updated-tour.mp4"
+        ],
+
+        "floorPlanUrls": [
+          "https://example.com/floorplans/updated-plan.jpg"
+        ],
+
+        "virtualTourUrl": "https://example.com/virtual-tour-updated",
+
+        "nearestSchoolDistance": 1.2,
+        "nearestCollegeDistance": 2.8,
+        "nearestHospitalDistance": 1.5,
+        "nearestMetroDistance": 0.8,
+        "nearestBusStandDistance": 0.4,
+        "nearestRailwayStationDistance": 5.0,
+        "nearestAirportDistance": 14.5,
+        "nearestMallDistance": 2.0,
+        "nearestMarketDistance": 0.8,
+        "nearestParkDistance": 0.2,
+
+        "approvedByAuthority": true,
+        "titleClear": true,
+        "bankApproved": true,
+        "reraApproved": true,
+        "reraNumber": "TN-RERA-2026-002",
+
+        "bachelorsAllowed": false,
+        "familyPreferred": true,
+        "petsAllowed": true,
+        "smokingAllowed": false,
+        "leaseDurationMonths": 24,
+
+        "availableFrom": "2026-08-15",
 
         "reservationsEnabled": true,
         "immediateReservationEnabled": true,
         "normalReservationEnabled": true,
         "slowReservationEnabled": false,
-        "maxNormalReservations": 10
+        "maxNormalReservations": 15
       }
   auth:
     type: bearer

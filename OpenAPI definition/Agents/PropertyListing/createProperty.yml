@@ -91,41 +91,178 @@ http:
       // }
 
 
+      // {
+      //   "title": "Fully Furnished Studio Apartment",
+      //   "description": "Compact and stylish studio suitable for working professionals.",
+
+      //   "propertyType": "COMMERCIAL",
+      //   "listingType": "RENT",
+
+      //   "expectedPrice": 45000,
+      //   "startPrice": 40000,
+      //   "maxPrice": 50000,
+
+      //   "address": "78 MG Road",
+      //   "locality": "Indiranagar",
+      //   "city": "Bengaluru",
+      //   "postalCode": "560038",
+      //   "district": "Bengaluru Urban",
+      //   "state": "Karnataka",
+      //   "country": "India",
+
+      //   "latitude": 12.9784,
+      //   "longitude": 77.6408,
+
+      //   "builtUpAreaSqFt": 650,
+      //   "carpetAreaSqFt": 580,
+
+      //   "bedrooms": 1,
+      //   "bathrooms": 1,
+      //   "balconies": 1,
+      //   "parkingSpaces": 1,
+
+      //   "reservationsEnabled": false,
+      //   "immediateReservationEnabled": false,
+      //   "normalReservationEnabled": false,
+      //   "slowReservationEnabled": false,
+      //   "maxNormalReservations": 0
+      // }
+
+
+
+
       {
-        "title": "Fully Furnished Studio Apartment",
-        "description": "Compact and stylish studio suitable for working professionals.",
+        "title": "Luxury 3 BHK Apartment",
+        "description": "Premium apartment with modern amenities and city view",
 
-        "propertyType": "COMMERCIAL",
-        "listingType": "RENT",
+        "propertyType": "APARTMENT",
+        "listingType": "SALE",
 
-        "expectedPrice": 45000,
-        "startPrice": 40000,
-        "maxPrice": 50000,
+        "projectName": "Green Heights",
+        "builderName": "ABC Builders",
+        "ownerName": "Ravi Kumar",
 
-        "address": "78 MG Road",
-        "locality": "Indiranagar",
-        "city": "Bengaluru",
-        "postalCode": "560038",
-        "district": "Bengaluru Urban",
-        "state": "Karnataka",
+        "startPrice": 8500000,
+        "expectedPrice": 9000000,
+        "maxPrice": 9500000,
+
+        "maintenanceCharge": 5000,
+        "securityDeposit": 100000,
+        "monthlyRent": null,
+        "pricePerSqFt": 8500,
+        "priceNegotiable": true,
+
+        "address": "12 Anna Nagar West",
+        "landmark": "Near Metro Station",
+        "locality": "Anna Nagar",
+        "city": "Chennai",
+        "district": "Chennai",
+        "state": "Tamil Nadu",
         "country": "India",
+        "postalCode": "600101",
+        "latitude": 13.085,
+        "longitude": 80.210,
+        "googleMapsUrl": "https://maps.google.com/example",
 
-        "latitude": 12.9784,
-        "longitude": 77.6408,
+        "plotAreaSqFt": 1500,
+        "builtUpAreaSqFt": 1400,
+        "carpetAreaSqFt": 1200,
+        "superBuiltUpAreaSqFt": 1450,
 
-        "builtUpAreaSqFt": 650,
-        "carpetAreaSqFt": 580,
+        "bedrooms": 3,
+        "bathrooms": 3,
+        "balconies": 2,
+        "halls": 1,
+        "kitchens": 1,
+        "parkingSpaces": 2,
+        "floorNumber": 5,
+        "totalFloors": 12,
+        "ageOfProperty": 2,
+        "yearBuilt": 2024,
 
-        "bedrooms": 1,
-        "bathrooms": 1,
-        "balconies": 1,
-        "parkingSpaces": 1,
+        "facingDirection": "EAST",
+        "cornerProperty": true,
+        "vastuCompliant": true,
 
-        "reservationsEnabled": false,
+        "furnished": true,
+        "semiFurnished": false,
+        "unfurnished": false,
+
+        "lift": true,
+        "powerBackup": true,
+        "security24x7": true,
+        "cctv": true,
+        "gatedCommunity": true,
+        "swimmingPool": true,
+        "gym": true,
+        "clubhouse": true,
+        "childrensPlayArea": true,
+        "joggingTrack": true,
+        "indoorGames": true,
+        "outdoorSports": true,
+        "park": true,
+        "visitorParking": true,
+        "rainWaterHarvesting": true,
+        "fireSafety": true,
+        "intercom": true,
+        "wifiReady": true,
+
+        "conferenceRoom": false,
+        "cafeteria": false,
+        "receptionArea": false,
+        "centralAirConditioning": false,
+
+        "waterSupply": true,
+        "sewageConnection": true,
+        "electricityConnection": true,
+        "internetAvailable": true,
+        "gasPipeline": false,
+
+        "imageUrls": [
+          "https://example.com/images/property1.jpg",
+          "https://example.com/images/property2.jpg"
+        ],
+
+        "videoUrls": [
+          "https://example.com/videos/property-tour.mp4"
+        ],
+
+        "floorPlanUrls": [
+          "https://example.com/floorplans/plan1.jpg"
+        ],
+
+        "virtualTourUrl": "https://example.com/virtual-tour",
+
+        "nearestSchoolDistance": 1.5,
+        "nearestCollegeDistance": 3.0,
+        "nearestHospitalDistance": 2.0,
+        "nearestMetroDistance": 1.0,
+        "nearestBusStandDistance": 0.5,
+        "nearestRailwayStationDistance": 5.5,
+        "nearestAirportDistance": 15.0,
+        "nearestMallDistance": 2.5,
+        "nearestMarketDistance": 1.0,
+        "nearestParkDistance": 0.3,
+
+        "approvedByAuthority": true,
+        "titleClear": true,
+        "bankApproved": true,
+        "reraApproved": true,
+        "reraNumber": "TN-RERA-2026-001",
+
+        "bachelorsAllowed": true,
+        "familyPreferred": true,
+        "petsAllowed": true,
+        "smokingAllowed": false,
+        "leaseDurationMonths": 12,
+
+        "availableFrom": "2026-07-01",
+
+        "reservationsEnabled": true,
         "immediateReservationEnabled": false,
-        "normalReservationEnabled": false,
+        "normalReservationEnabled": true,
         "slowReservationEnabled": false,
-        "maxNormalReservations": 0
+        "maxNormalReservations": 10
       }
   auth:
     type: bearer
